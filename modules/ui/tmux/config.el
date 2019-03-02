@@ -33,7 +33,7 @@
 				  ";")))
   __export-tmux-socket-path-cmd)
 ;; TODO: use emamux instead of my own stuff to fix the window/pane problems I'm having?
-(load-file (concat dir_system "/emacs/emamux.el"))
+;; (load-file (concat dir_system "/emacs/emamux.el"))
 
 ;;; tmux-notify
 

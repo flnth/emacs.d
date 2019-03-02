@@ -34,3 +34,9 @@
 [submodule "packages/pcache"]
 	path = packages/pcache
 	url = https://github.com/sigma/pcache.git
+[submodule "packages/dired-plus"]
+	path = packages/dired-plus
+	url = https://github.com/emacsmirror/dired-plus.git
+[submodule "packages/drag-stuff.el"]
+	path = packages/drag-stuff.el
+	url = https://github.com/rejeep/drag-stuff.el.git
