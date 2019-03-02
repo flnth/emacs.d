@@ -73,3 +73,6 @@
 [submodule "share"]
 	path = share
 	url = https://efth@bitbucket.org/efth/emacs-share.git
+[submodule "packages/mmm-mode"]
+	path = packages/mmm-mode
+	url = https://github.com/purcell/mmm-mode.git
