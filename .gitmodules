@@ -64,3 +64,9 @@
 [submodule "packages/redo-plus"]
 	path = packages/redo-plus
 	url = https://github.com/emacsmirror/redo-plus.git
+[submodule "packages/textile-mode"]
+	path = packages/textile-mode
+	url = https://github.com/juba/textile-mode.git
+[submodule "packages/whist.el"]
+	path = packages/whist.el
+	url = https://github.com/flnth/whist.el.git
