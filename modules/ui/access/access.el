@@ -463,8 +463,8 @@ included."
 				 (find-file (cdr virtual)))
 				((file-exists-p selection)
 				 (find-file selection)))))
-	;; prefix argument:  search for *.el and dirs below $DIR_SYSTEM/system/emacs
-	(let* ((root (concat (getenv "DIR_SYSTEM") "/emacs/"))
+	;; prefix argument:  search for *.el and dirs in emacs directory
+	(let* ((root (concat dir_emacs "modules"))
 		   (cmd-files "fd '.el$'")
 		   (cmd-dirs "fd . -t d")
 		   (cmd (concat "cd " root "; " cmd-files "; " cmd-dirs))

@@ -3,8 +3,8 @@
 ;;; json
 
 (require 'json)
-(setq pjson-file-path (concat (getenv "DIR_SYSTEM")
-						   "/emacs/pjson/projects."
+(setq pjson-file-path (concat emacsroot 
+						   "/share/projects."
 						   (system-name)
 						   ".json"))
 
@@ -114,7 +114,7 @@ projectile source."
 ;;;; active targets
 ;;;;; serialization
 (setq pjson-active-targets-path
-	  (concat (getenv "DIR_SYSTEM") "/emacs/pjson/projects.active.targets." system-name))
+	  (concat dir_emacs "share/projects.active.targets." system-name))
 
 (defun pjson-write-active-targets ()
   (f-write-text (format "%S" pjson-active-targets) 'raw-text pjson-active-targets-path))
@@ -319,7 +319,7 @@ NOTE:  currently, add monolith_dir."
 ;;;; compile-command-per-target
 ;;;;; serialization
 (setq pjson-compile-commands-path
-	  (concat (getenv "DIR_SYSTEM") "/emacs/pjson/projects.compile.commands." system-name))
+	  (concat dir_emacs "/share/projects.compile.commands." system-name))
 
 (defun pjson-write-compile-commands ()
   (f-write-text (format "%S" pjson-compile-commands) 'raw-text pjson-compile-commands-path))

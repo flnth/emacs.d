@@ -461,23 +461,15 @@ ycmd--handle-detailed-info-response"
 
 ;;;; ycmd
 
-;; -> code-navigation
-
-(setq dir_system (getenv "DIR_SYSTEM"))
-(setq dir_anaconda (getenv "DIR_ANACONDA"))
-(setq dir_stackroot (getenv "STACKROOT"))
-
 (defun fn-load-ycmd ()
   (interactive)
-  (add-to-list 'load-path (concat dir_system "/emacs/emacs-ycmd"))
-  (require 'ycmd)
-  (require 'company-ycmd)
-  (require 'ycmd-eldoc)
+  (use-package ycmd  :load-path "package/emacs-ycmd")
+  (use-package company-ycmd :load-path "package/company-ycmd")
+  (use-package 'ycmd-eldoc :load-path "package/company-ycmd")
   (company-ycmd-setup)
 
-  (setq ycmd-global-config (concat dir_system "/emacs/ycm_extra_conf.py") )
-  (setq ycmd-server-command (list (concat dir_anaconda "/bin/python")
-								  (concat dir_stackroot "/software/ycmd/ycmd") ))
+  (setq ycmd-global-config (concat dir_stackroot "etc/ycmd/ycm_extra_conf.py") )
+  (setq ycmd-server-command (list "python3" (concat dir_stackroot "opt/ycmd/ycmd") ))
 
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (add-hook 'c++-mode-hook

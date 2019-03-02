@@ -5,11 +5,11 @@
 
 ;;;; creation
 (defun +utils-module-create (subdir)
-  "Generate new module in $DIR_SYSTEM/emacs/modules/SUBDIR."
+  "Generate new module in dir_emacs/modules/SUBDIR."
 
   (let* ((subdir (s-chop-suffix "/" (s-chop-prefix "/" subdir)))
-		 (path (concat (getenv "DIR_SYSTEM")
-					   "/emacs/modules/"
+		 (path (concat dir_emacs
+					   "modules/"
 					   subdir)))
 
 	;; dir
@@ -57,8 +57,8 @@
   (interactive)
   (let* ((module-path (if (null module-path) (read-from-minibuffer "> " +utils--last-module-path)
 						module-path))
-		 (path (concat (getenv "DIR_SYSTEM")
-					   "/emacs/modules/"
+		 (path (concat dir_emacs
+					   "modules/"
 					   (s-chop-suffix "/" (s-chop-prefix "/" module-path)))))
 	(append-to-file (region-beginning) (region-end) (concat path "/config.el"))
 	(setq +utils--last-module-path module-path)
@@ -88,7 +88,7 @@ is t, insert the output in the current buffer"
   ;; print the path relative to the module dir
 
   (let* ((cmd "fd config.el")
-		 (default-directory (concat (getenv "DIR_SYSTEM") "/emacs/modules"))
+		 (default-directory (concat dir_emacs "modules"))
 		 (cands
 		  (mapcar #'(lambda (s) (s-chop-suffix "/config.el" s))
 				  (s-split "\n" (with-output-to-string

@@ -65,9 +65,10 @@
   (evil-define-key '(normal visual emacs motion emacs evilified) special-mode-map (kbd "gb") #'acc-ido-switch-buffer )
 
   :config
-  (setq counsel-rg-base-command (concat "rg -i --hidden --line-number --no-heading --color never --ignore-file "
-										(getenv "DIR_SYSTEM")
-										"/rg_ignore "
+  (setq counsel-rg-base-command (concat "rg -i --hidden --line-number --no-heading --color never "
+										(let ((ignore-file (concat dir_stackroot "etc/ripgrep_ignore")))
+										  (when (f-exists? ignore-file)
+											(concat "--ignore-file " ignore-file " ")))
 										"%s .")))
 
 ;;;; viewing pdfs from cloud (-> module access!)

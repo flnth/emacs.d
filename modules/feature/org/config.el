@@ -73,8 +73,6 @@
   (load "feature/porg/config")
   (+load "org-tools.el")
 
-  (setq dir_system (getenv "DIR_SYSTEM"))
-
   ;; -- fixes
   ;; TODO: still necessary?
   (defun ob-ipython-auto-configure-kernels (&optional replace))
@@ -204,7 +202,6 @@
 
   ;; features ---
   ;; org-screenshot
-  ;; (load-file (concat dir_system "/emacs/org-attach-screenshot.el"))
   (setq org-attach-screenshot-command-line "mycommand -x -y -z %f")	; modify command for taking the screenshot
   (setq org-attach-screenshot-dirfunction ; modify the function for generating a directory name (!)
         (lambda ()					; check out org-attach-screenshot-relative-links

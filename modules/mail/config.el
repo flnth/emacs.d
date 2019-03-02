@@ -1,7 +1,5 @@
 ;; modules/mail/config.el -*- lexical-binding: t; -*-
 
-;; TODO:  thunk dir_local, dir_system... load on first use, then just use.
-
 (load "mail/packages.el")
 (load "mail/autoloads.el")
 
@@ -313,7 +311,7 @@
 ;;; sidebar
 
 (use-package sidebar
-  :load-path (lambda () (concat (getenv "DIR_SYSTEM") "/emacs/modules/mail"))
+  :load-path "mail"
   :after  (mu4e mu4e-maildirs-extension cl-lib dash ht)
   :config
   (setq mail-sidebar-window-width 35
@@ -334,20 +332,20 @@
 
 ;;; outlook-style
 
-(use-package outlook-style
-  :after (mu4e)
-  :init
-  (add-to-list 'load-path (concat (getenv "DIR_SYSTEM") "/emacs/gnus-outlook-style/"))
-  :config
-  (setq outlook-style-format-helper-location
-		(concat (getenv "DIR_SYSTEM")
-				"/emacs/gnus-outlook-style/format-html-email/format_quoted_mail")
-		outlook-style-post-active t)
-  (outlook-style-setup-mu4e)
+;; (use-package outlook-style
+;;   :after (mu4e)
+;;   :init
+;;   (add-to-list 'load-path (concat (getenv "DIR_SYSTEM") "/emacs/gnus-outlook-style/"))
+;;   :config
+;;   (setq outlook-style-format-helper-location
+;; 		(concat (getenv "DIR_SYSTEM")
+;; 				"/emacs/gnus-outlook-style/format-html-email/format_quoted_mail")
+;; 		outlook-style-post-active t)
+;;   (outlook-style-setup-mu4e)
 
-;;;; signatures
-  (add-hook 'outlook-style-post-plaintext-hook
-			(lambda () (fn-insert-signature (concat (getenv "DIR_SYSTEM") "/mail/sig-plain"))))
+;; ;;;; signatures
+;;   (add-hook 'outlook-style-post-plaintext-hook
+;; 			(lambda () (fn-insert-signature (concat (getenv "DIR_SYSTEM") "/mail/sig-plain"))))
 
-  (add-hook 'outlook-style-post-transform-hook
-			(lambda () (fn-insert-signature (concat (getenv "DIR_SYSTEM") "/mail/sig-html")))))
+;;   (add-hook 'outlook-style-post-transform-hook
+;; 			(lambda () (fn-insert-signature (concat (getenv "DIR_SYSTEM") "/mail/sig-html")))))

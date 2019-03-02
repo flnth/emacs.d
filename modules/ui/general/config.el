@@ -64,7 +64,7 @@ background is COLOR. The foreground is computed using
   )
 
 ;; plantuml
-(setq plantuml-jar-path (concat dir_system "/plantuml.jar"))
+(setq plantuml-jar-path "plantuml.jar")
 ;; C-x C-c to kill the frame and not exit the client (and prompt)...
 ;; (global-set-key (kbd "C-x C-c") 'delete-frame)
 (global-set-key (kbd "C-x C-c") 'nil)

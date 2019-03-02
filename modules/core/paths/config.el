@@ -1,20 +1,33 @@
 ;; modules/core/paths/config.el    -*- lexical-binding: t; -*-
 
-;; -> load paths. Maybe do prevent having to walk directories, hardcode them.
-;; (I remember something about performance in that context)
+;; ---------------------------------------------------------
+;; "The root of this system's directory stack. Defaults to the
+;; value of the environment variable DIR_STACKROOT, or if that is not
+;; set, the user's home directory."
+(setq dir_stackroot
+	  (let ((d (f-slash (getenv "DIR_STACKROOT"))))
+		(if (null d)
+			(f-slash (getenv "HOME"))
+		  (when (not (f-exists? d))
+			(make-directory d t))
+		  d)))
 
-;; -> directory magement, load path stuff
-(setq dir_system (getenv "DIR_SYSTEM"))
-(setq dir_emacs (getenv "DIR_EMACSD"))
+;; "The root of this system's emacs directory stack. Defaults to the
+;; value of the environment variable DIR_EMACSD, of if that is not
+;; set, the user's home directory."
+(setq dir_emacs
+	  (let ((d (f-slash (getenv "DIR_EMACSD"))))
+		(if (null d)
+			(concat (f-slash (getenv "HOME")) ".emacs.d/")
+		  (when (not (f-exists? d))
+			(make-directory d t))
+		  d)))
 
+;; ---------------------------------------------------------
 (add-to-list 'load-path dir_emacs)
-
 (add-to-list 'load-path (concat dir_emacs "/packages/f.el"))
 
-(add-to-list 'load-path (concat dir_system "/emacs/pjson/"))
-(add-to-list 'load-path (concat dir_system "/emacs/whist.el/"))
-(add-to-list 'load-path (concat dir_system "/emacs/evil-collection/"))
-(add-to-list 'load-path (concat dir_system "/emacs/lsp-python-ms/"))
 
-(load-file (concat dir_system "/emacs/gtypist-mode.el"))
+;; (add-to-list 'yas-snippet-dirs (concat dir_system "/emacs/snippets" ))
+
 

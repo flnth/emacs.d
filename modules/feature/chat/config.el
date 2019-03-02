@@ -154,8 +154,8 @@
 
 ;;;; history access
 
-  (setq erc-log-dir (concat (f-slash (getenv "DIR_SYSTEM"))
-							".emacs.d/.cache/erc-logs/"))
+  (setq erc-log-dir (concat dir_emacs
+							"share/cache/erc-logs/"))
 
 ;;;; auto join
 

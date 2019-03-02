@@ -3,27 +3,7 @@
 (message "treemacs/config.el ...")
 
 (use-package treemacs
-  ;; :after (ivy ido counsel projectile counsel-projectile f magit)
-  ;; :demand
-  ;; :bind (("M-x" . acc-M-x)
-  ;; 		 ("M-X" . counsel-M-x))
-  ;; :commands (acc-counsel-projectile-rg
-  ;; 			 )
-
-  :init
-  ;; (message "ui/access/access requiring all that stuff...--------------------------------------------")
-  ;; (require 'feature/compilation/pjson)
-  ;; (require 'ivy)
-
-  ;; (spacemacs/set-leader-keys
-  ;; 	"ps" 'acc-counsel-projectile-rg
-  ;; 	)
-
   :config
-  ;; (setq counsel-rg-base-command (concat "rg -i --hidden --line-number --no-heading --color never --ignore-file "
-  ;; 										(getenv "DIR_SYSTEM")
-  ;; 										"/rg_ignore "
-  ;; 										"%s ."))
 ;;; theming
   (treemacs-resize-icons 14)
   (treemacs-git-mode 'deferred)
@@ -87,7 +67,7 @@
 
 ;;; keys
 ;;;; toggle
-  (setq +treemacs--system-modules-dir (concat (getenv "DIR_SYSTEM") "/emacs/modules"))
+  (setq +treemacs--system-modules-dir (concat dir_emacs "modules"))
 
   (defun +treemacs-toggle ()
 	"Toggles display of the treemacs sidebar, and ensures that a

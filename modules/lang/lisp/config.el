@@ -13,8 +13,8 @@
 
 ;;;; lisp
 
-(add-to-list 'load-path (concat dir_system "/emacs/lispy"))
-(add-to-list 'load-path (concat dir_system "/emacs/lispyville"))
+(add-to-list 'load-path (concat dir_emacs "packages/lispy"))
+(add-to-list 'load-path (concat dir_emacs "packages/lispyville-mod"))
 
 (require 'lispy)
 (require 'lispyville)

@@ -7,7 +7,7 @@
 
 ;; -> evil module
 
-(add-to-list 'load-path (concat (getenv "DIR_SYSTEM") "/emacs/evil-collection/"))
+(add-to-list 'load-path (concat dir_emacs "packages/evil-collection/"))
 
 (require 'evil-collection-minibuffer)
 (evil-collection-minibuffer-setup)

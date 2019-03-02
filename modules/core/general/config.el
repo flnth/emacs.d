@@ -1,19 +1,17 @@
 ;; modules/core/general/config.el    -*- lexical-binding: t; -*-
 
-;;;; fix mmm-mode
-(add-to-load-path (concat dir_system "/emacs/mmm-mode"))
-(require 'mmm-mode)
+;;;; mmm-mode
+(use-package mmm-mode
+  :load-path "packages/mmm-mode")
 
 ;;;; prog modes
 (defun +general-prog-mode-config ()
-  (setq truncate-lines t)
-  )
+  (setq truncate-lines t))
 (add-hook #'prog-mode-hook #'+general-prog-mode-config)
 
 ;;;; pretty-printing
 (setq eval-expression-print-level nil
-	  eval-expression-print-length nil
-	  )
+	  eval-expression-print-length nil)
 
 ;;;; (directory) local variables
 ;; dir-locals

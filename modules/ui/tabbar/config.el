@@ -54,7 +54,7 @@
 (global-set-key (kbd "<C-prior>") 'tabbar-forward-tab)
 (global-set-key (kbd "<C-next>") 'tabbar-backward-tab)
 
-(add-to-load-path (concat (getenv "DIR_SYSTEM") "/emacs/tabbar") )
+(add-to-load-path (concat dir_emacs "/packages/tabbar") )
 
 (tabbar-mode 1)
 
