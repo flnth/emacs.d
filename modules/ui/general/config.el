@@ -43,7 +43,8 @@ background is COLOR. The foreground is computed using
 (require 'textile-mode)
 ;;;; dired (general ui or dired module)
 
-(require 'help-fns+)
+(use-package help-fns+
+  :load-path "packages/help-fns-plus")
 (require 'dired+)
 (diredp-make-find-file-keys-reuse-dirs)
 
@@ -226,7 +227,8 @@ dired."
 (global-set-key (kbd "M-;") (lambda () (interactive) (comment-dwim nil) (evil-insert nil)  ))
 ;; -> general ui
 (global-undo-tree-mode -1)
-(require 'redo+)
+(use-package redo+
+  :load-path "packages/redo-plus")
 
 ;; -> general ui
 (global-anzu-mode -1)

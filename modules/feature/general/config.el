@@ -2,6 +2,7 @@
 
 (use-package gtypist-mode
   :commands (gtypist-mode)
+  :load-path "packages"
   :init
   (setq auto-mode-alist
 		(cons '("\\.typ\\'" . gtypist-mode) auto-mode-alist)))

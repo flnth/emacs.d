@@ -3,6 +3,7 @@
 
 ;;;; window-history
 (use-package whist
+  :load-path "packages/whist.el"
   :bind (("<C-comma>" . 'whist-go-back)
 		 ("<C-period>" . 'whist-go-forward)
 		 ("C-," . 'whist-go-back)

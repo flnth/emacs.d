@@ -6,7 +6,8 @@
 (require 'f)
 (require 'projectile)
 (require 'pulse)
-(require 'asoc)
+(use-package asoc
+  :load-path "packages/asoc.el")
 
 (use-package feature/compilation/pjson
   :after (f projectile asoc)

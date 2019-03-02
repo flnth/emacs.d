@@ -8,8 +8,8 @@
   (require 'dash)
   (require 'json)
   (require 'projectile)
-  (require 'asoc)
-
+  (use-package asoc
+	:load-path "packages/asoc.el")
   )
 
 

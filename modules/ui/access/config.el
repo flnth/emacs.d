@@ -32,7 +32,8 @@
 			 )
 
   :init
-  (require 'pcache)
+  (use-package pcache
+	:load-path "packages/pcache")
   (require 'window-purpose)
   (require 'window-purpose-switch)
   (require 'feature/compilation/pjson)
@@ -199,9 +200,10 @@
 ;;   overwrite find-file advice
 ;;   remove advice afterwards
 
-
-(require 'evil-collection-helpful)
-(evil-collection-helpful-setup)
+(use-package evil-collection-helpful-mod
+  :load-path "packages")
+(require 'evil-collection-helpful-mod)
+(evil-collection-helpful-mode-setup)
 
 ;; q to close helpful buffers
 (require 'helpful)

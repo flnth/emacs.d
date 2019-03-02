@@ -53,7 +53,8 @@
   ;; https://melpa.org/#/?q=pcmp
   ;; https://tsdh.wordpress.com/2013/05/31/eshell-completion-for-git-bzr-and-hg/
   (when (and (executable-find "fish"))
-	(require 'fish-completion)
+	(use-package fish-completion
+	  :load-path "packages/emacs-fish-completion")
 	(global-fish-completion-mode))
 
 ;;; history

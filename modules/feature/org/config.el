@@ -151,7 +151,8 @@
 	:group 'org-faces )
 
   ;; dates
-  (require 'german-holidays)
+  (use-package german-holidays
+	:load-path "packages/german-holidays")
   (setq calendar-holidays holiday-german-NW-holidays)
 
   ;; prettification / formatting
@@ -203,10 +204,10 @@
 
   ;; features ---
   ;; org-screenshot
-  (load-file (concat dir_system "/emacs/org-attach-screenshot.el"))
+  ;; (load-file (concat dir_system "/emacs/org-attach-screenshot.el"))
   (setq org-attach-screenshot-command-line "mycommand -x -y -z %f")	; modify command for taking the screenshot
   (setq org-attach-screenshot-dirfunction ; modify the function for generating a directory name (!)
-        (lambda ()				; check out org-attach-screenshot-relative-links
+        (lambda ()					; check out org-attach-screenshot-relative-links
           (progn (assert (buffer-file-name))
                  (concat (file-name-sans-extension (buffer-file-name))
                          "_att"))))

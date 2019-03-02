@@ -2,7 +2,6 @@
 
 ;;; json
 
-;; TODO:  factor out from porg.el, use here
 (require 'json)
 (setq pjson-file-path (concat (getenv "DIR_SYSTEM")
 						   "/emacs/pjson/projects."

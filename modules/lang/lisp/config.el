@@ -476,8 +476,8 @@
 )
 
 ;;;; dynamic macro expansion
-
-(require 'quick-peek)
+(use-package quick-peek
+  :load-path "packages/quick-peek")
 (require 'lang/lisp/hexpand)
 (with-eval-after-load 'lispy
   (evil-define-key '(normal) lispy-mode-map

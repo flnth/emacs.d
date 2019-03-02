@@ -57,7 +57,8 @@
 (add-hook 'yaml-mode-hook #'fn--enable-ansible-mode-if )
 
 (run-with-timer 5 nil #'(lambda ()
-						  (require 'origami)
+						  (use-package origami
+							:load-path "packages/origami")
 						  ;; folding
 						  (add-hook 'yaml-mode-hook #'origami-mode)))
 

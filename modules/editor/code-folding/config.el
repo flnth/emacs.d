@@ -61,6 +61,7 @@
 
 (use-package outline-ivy
   :after (outshine outline)
+  :load-path "packages"
   :demand t
   :bind (:map evil-motion-state-map
 			  ("gM" . 'ivy-outline))
@@ -106,6 +107,7 @@
 ;;;; hideshow-org
 (use-package hideshow-org
   :after (org hideshow)
+  :load-path "packages"
   :commands hs-org/minor-mode
   :hook (python-mode . hs-org/minor-mode)
 

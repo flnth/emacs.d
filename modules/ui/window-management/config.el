@@ -155,10 +155,12 @@ one (whatever the first one, randomly, may be)."
 
 ;; tmux-emacs integration:  M-hjkl to navigate panes in emacs and tmux
 (with-eval-after-load "evil-maps"
-  (require 'navigate))
+  (use-package navigate
+	  :load-path "packages"))
 
 (with-eval-after-load "org"
-  (require 'navigate))
+  (use-package navigate
+	  :load-path "packages"))
 
 ;; was:  C-x left/right and C-x C-left/right  to (next-buffer) and (previous buffer)
 (global-set-key (kbd "C-x d") 'delete-window)
@@ -179,7 +181,8 @@ one (whatever the first one, randomly, may be)."
   )
 
 ;; -- resizing hydra --
-(require 'move-border)
+(use-package move-border
+  :load-path "packages/move-border")
 (defhydra hydra-window ()
   "^Resize^"
   ("M-h" (move-border-left 2))
