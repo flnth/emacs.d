@@ -517,58 +517,13 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  ;; -----------------------------------------------------------------------------
-  ;;        directories
-  ;; -----------------------------------------------------------------------------
-
-  ;; system directory
-  (setq dir_system (getenv "DIR_SYSTEM"))
-
-  ;; global load path
-  (add-to-list 'load-path
-               (concat dir_system "/emacs"))
-
-  ;; ya snippets
-  (add-to-list 'yas-snippet-dirs
-               (concat dir_system "/emacs/snippets" ))
-
-  ;; TODO: workaround
-  (add-to-load-path (concat (getenv "DIR_SYSTEM") "/emacs/tabbar") )
-
-  ;; CEDET
-  ;; Load CEDET.
-  ;; See cedet/common/cedet.info for configuration details.
-  ;; IMPORTANT: Tou must place this *before* any CEDET component
-  ;; gets activated by another package (Gnus, auth-source, ...).
-  ;; (load-file "/home/fthevissen/software/cedet/cedet-devel-load.el")
-
-  ;; Add further minor-modes to be enabled by semantic-mode.
-  ;; See doc-string of `semantic-default-submodes' for other things
-  ;; you can use here.
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-summary-mode t)
-  ;; (add-to-list 'semantic-default-submodes 'global-semantic-idle-completions-mode t)
-  ;; (add-to-list 'semantic-default-submodes 'global-cedet-m3-minor-mode t)
-
-  ;; Enable Semantic
-  ;; (semantic-mode 1)
-
-  ;; Enable EDE (Project Management) features
-  ;; (global-ede-mode 1)
-
-
-  ;; -----------------------------------------------------------------------------
-  ;;        load custom configuration
-  ;; -----------------------------------------------------------------------------
-  (message "\n----- loading custom configuration -------------------------------")
-
-  ;; (message "   authenticating...")
+  (require 'use-package)
   (require 'auth-source)
   ;; (auth-source-search :max 1 :host "irc.freenode.net")
 
-  ;; modules ---------------------------
-  (require 'use-package)
-  (add-to-list 'load-path (concat (getenv "DIR_SYSTEM") "/emacs/modules/"))
-  ;; (require 'init_mail)
+  (message "\n----- loading custom configuration -------------------------------")
+
+  (add-to-list 'load-path (concat dir_emacs "modules/"))
 
   (require 's)
   (require 'dash)
@@ -650,36 +605,9 @@ you should place your code here."
   ;; -- app
   (load "app/elfeed/config")
 
-  ;; (require 'init_access)
-
-  ;; old-style init files -------------| PLAN |MODULARIZE|
-  ;; (require 'config-keys) 				; DONE DONE
-  ;; (require 'config-tty)				; DONE DONE
-
-  ;; (require 'config-emacs) 				; DONE DONE
-  ;; (require 'config-features)  			; DONE DONE
-  ;; (require 'config-evil) 				; DONE DONE
-
-  ;; (require 'config-major-modes) 		; DONE DONE
-
-  ;; (require 'config-org) 				; TODO DONE
-  ;; (require 'config-compilation) 		; TODO DONE
-
-  ;; (require 'config-chat) 				; TODO DONE
-  ;; (require 'config-tabs) 				; TODO DONE
-  ;; ;; (require 'config-mail)
-
-  ;; (add-to-load-path (concat (getenv "DIR_SYSTEM") "/emacs/porg"))
-  ;; (require 'porg)
-
-  ;; (add-to-load-path (concat (getenv "DIR_SYSTEM") "/emacs/redtime"))
-  ;; (require 'redtime)
-
-
   (message "--------------------------------------------------------------------\n")
 
   (spacemacs/toggle-truncate-lines-on)
-
 
   ) ;; ------------------------------------------------------------------------------
 
