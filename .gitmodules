@@ -25,3 +25,9 @@
 [submodule "packages/lispyville-mod"]
 	path = packages/lispyville-mod
 	url = https://github.com/flnth/lispyville-mod.git
+[submodule "packages/emacs-tabbar"]
+	path = packages/emacs-tabbar
+	url = https://github.com/flnth/emacs-tabbar.git
+[submodule "packages/treepy.el"]
+	path = packages/treepy.el
+	url = https://github.com/volrath/treepy.el.git
