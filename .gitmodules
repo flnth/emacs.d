@@ -40,3 +40,15 @@
 [submodule "packages/drag-stuff.el"]
 	path = packages/drag-stuff.el
 	url = https://github.com/rejeep/drag-stuff.el.git
+[submodule "packages/emacs-fish-completion"]
+	path = packages/emacs-fish-completion
+	url = https://gitlab.com/ambrevar/emacs-fish-completion.git
+[submodule "packages/german-holidays"]
+	path = packages/german-holidays
+	url = https://github.com/rudolfochrist/german-holidays.git
+[submodule "packages/help-fns-plus"]
+	path = packages/help-fns-plus
+	url = https://github.com/emacsmirror/help-fns-plus.git
+[submodule "packages/lsp-python-ms"]
+	path = packages/lsp-python-ms
+	url = https://github.com/andrew-christianson/lsp-python-ms.git
