@@ -1,0 +1,27 @@
+[submodule "spacemacs"]
+	path = spacemacs
+	url = https://github.com/syl20bnr/spacemacs.git
+[submodule "packages/anki-mode"]
+	path = packages/anki-mode
+	url = https://github.com/davidshepherd7/anki-mode.git
+[submodule "packages/asoc.el"]
+	path = packages/asoc.el
+	url = https://github.com/troyp/asoc.el.git
+[submodule "packages/emacs-ycmd"]
+	path = packages/emacs-ycmd
+	url = https://github.com/abingham/emacs-ycmd
+[submodule "packages/evil-collection"]
+	path = packages/evil-collection
+	url = https://github.com/emacs-evil/evil-collection.git
+[submodule "packages/f.el"]
+	path = packages/f.el
+	url = https://github.com/rejeep/f.el.git
+[submodule "packages/helpful"]
+	path = packages/helpful
+	url = https://github.com/Wilfred/helpful.git
+[submodule "packages/lispy"]
+	path = packages/lispy
+	url = https://github.com/abo-abo/lispy.git
+[submodule "packages/lispyville-mod"]
+	path = packages/lispyville-mod
+	url = https://github.com/flnth/lispyville-mod.git
