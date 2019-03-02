@@ -1,0 +1,126 @@
+
+* lsp: object model
+- lsp client <-> lsp server ::
+    - emacs lsp-client struct  <-> cquery process
+- "language server" :: lsp client + lsp server proces
+
+- client ::
+    - client-side behavior
+    - starts individual server processes
+    - each server processes represented by lsp--workspace object
+    - usually    
+         1 workspace (process lives here)  <-> (1 client <-> 1 server process)  <-  server-id
+    - but it's also possible for
+         N workspaces (process lives here) <-> (1 client <-> 1 server process)  <-  server-id
+    - server-id :: uid
+    - multi-root :: bool
+    - library-folders-fn ::
+         returns folders that are considered to be not projects but library files.
+         Accepts one parameter:  currently active workspace
+    - before-file-open-fn ::
+         called when opening file in the workspace to perform client specific
+         initialization
+    - major-modes :: modes supported by the client
+
+- workspace ::
+    - represents a lsp (server) process
+    - client :: associated client
+    - root :: directory as workspace root, passed to lsp server
+    - proc :: actual server process
+    - cmd-proc :: "command-process" process (...e.g. a network process?)
+    - status ::
+    - ~workspace folders~: N
+
+- session ::
+    - folders :: list of folders part of the current session
+    - server-id->folders :: hash-table, "list of folders that must be imported
+         in case of multi root lsp server"
+    - folder->servers :: hash-table, list of servers associated with folder
+
+* lsp: accessing stuff
+** client
+- get list of all clients
+#+BEGIN_SRC emacs-lisp
+(map-values lsp-clients)
+#+END_SRC
+
+- get server-id, multi-root, and other stuff
+#+BEGIN_SRC emacs-lisp
+;; server-id            (e.g. "cquery"?)
+(map-keys lsp-clients)
+;; multiroot support
+(lsp--client-multi-root (car (map-values lsp-clients)))
+;; ...
+(lsp--client-server-id (lsp--workspace-client (car (lsp--session-workspaces (lsp-session)))))
+#+END_SRC
+
+- get workspace(s)
+#+BEGIN_SRC emacs-lisp
+;; associated with project in current buffer:
+(lsp-workspaces)
+;; globally:
+(lsp--session-workspaces (lsp-session))
+#+END_SRC
+
+** workspace
+- get associated client
+#+BEGIN_SRC emacs-lisp
+(lsp--workspace-client workspace)
+#+END_SRC
+ 
+- get ~workspace-root~, ~workspace folders~ 
+ #+BEGIN_SRC emacs-lisp
+; path to e.g. qtcreatorp
+(lsp--workspace-root*(car*(lsp--session-workspaces*(lsp-session))))
+; nil in case of qtcreatorp?? (TODO: what happens if I add monolith dir here?)
+(lsp--workspace-workspace-folders (car (lsp--session-workspaces (lsp-session))))
+#+END_SRC
+
+- get process, cmd-proc
+ #+BEGIN_SRC emacs-lisp
+;; both #<process cquery> for qtcreatorp project
+(lsp--workspace-proc (car (lsp--session-workspaces (lsp-session))))
+(lsp--workspace-cmd-proc (car (lsp--session-workspaces (lsp-session))))
+#+END_SRC
+
+- get status
+ #+BEGIN_SRC emacs-lisp
+(lsp--workspace-status (car (lsp--session-workspaces (lsp-session))))
+#+END_SRC
+
+- shutdown (<-> lsp-shutdown-workspace?)
+     #+BEGIN_SRC emacs-lisp
+        (setf (lsp--workspace-shutdown-action workspace) 'shutdown)
+        (with-lsp-workspace workspace (lsp--shutdown-workspace))
+     #+END_SRC
+       
+** session
+- get folders
+  #+BEGIN_SRC emacs-lisp
+(lsp-session-folders (lsp-session))
+#+END_SRC
+
+- get workspaces (!)
+#+BEGIN_SRC emacs-lisp
+(defun lsp--session-workspaces (session)
+  "Get all workspaces that are part of the SESSION."
+  (-> session lsp-session-folder->servers hash-table-values -flatten -uniq))
+;; NOTE: servers as synonym to workspaces here (!)
+#+END_SRC
+
+- get X from folder? (-> construct scenario where 1 folder <-> N
+servers?)
+ #+BEGIN_SRC emacs-lisp
+(lsp--find-works)
+;; iterate over (lsp--session-workspaces (lsp-session)
+;; find right one
+;; access:
+;;  - client (if any)
+;;  - root
+;;  - proc
+;;  - cmd-proc
+#+END_SRC
+
+
+
+

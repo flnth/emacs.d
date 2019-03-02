@@ -1,0 +1,114 @@
+{
+  "opsclass": {
+    "path": "/home/fthevissen/software/opsclass/src/opsclass.org",
+    "project": null
+  },
+  "emacs": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs.org",
+    "project": null
+  },
+  "flexcore-demo": {
+    "path": "/home/fthevissen/work/flexcore-demo/pres/flexcore-demo.org",
+    "project": "flexcore-demo"
+  },
+  "emacs-mail": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-mail.org",
+    "project": null
+  },
+  "emacs-whist": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-whist.org",
+    "project": null
+  },
+  "emacs-org": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-org.org",
+    "project": null
+  },
+  "emacs-erc": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-erc.org",
+    "project": null
+  },
+  "job": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/job.org",
+    "project": null
+  },
+  "tmux": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/tmux.org",
+    "project": null
+  },
+  "00813": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00813.org",
+    "project": null
+  },
+  "00811": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00811.org",
+    "project": null
+  },
+  "intern": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/intern.org",
+    "project": null
+  },
+  "00810": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00810.org",
+    "project": null
+  },
+  "00815": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00815.org",
+    "project": null
+  },
+  "00812": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00812.org",
+    "project": null
+  },
+  "30505": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/30505.org",
+    "project": null
+  },
+  "31610": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/31610.org",
+    "project": null
+  },
+  "work": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/work.org",
+    "project": null
+  },
+  "home": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/home.org",
+    "project": null
+  },
+  "emacs-pjson": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-pjson.org",
+    "project": null
+  },
+  "00814": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/00814.org",
+    "project": null
+  },
+  "emacs-tabs": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-tabs.org",
+    "project": null
+  },
+  "system": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/system.org",
+    "project": null
+  },
+  "31603a": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/31603a.org",
+    "project": null
+  },
+  "01401": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/01401.org",
+    "project": null
+  },
+  "prometheus": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/prometheus.org",
+    "project": null
+  },
+  "iloadout": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/workproj/iloadout.org",
+    "project": null
+  },
+  "emacs-porg": {
+    "path": "/home/fthevissen/cloud/82_Notes/org/proj/emacs-porg.org",
+    "project": null
+  }
+}

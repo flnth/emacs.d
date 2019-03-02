@@ -1,0 +1,18 @@
+
+
+* Working with dir-local variables
+
+** find path with .dir-locals.el from path
+#+BEGIN_SRC emacs-lisp
+(dir-locals-find-file path)
+#+END_SRC
+
+** modify .dir-locals.el from default-directory
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
+
+** 
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
