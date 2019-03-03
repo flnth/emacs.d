@@ -4,18 +4,12 @@
 [submodule "packages/anki-mode"]
 	path = packages/anki-mode
 	url = https://github.com/davidshepherd7/anki-mode.git
-[submodule "packages/asoc.el"]
-	path = packages/asoc.el
-	url = https://github.com/troyp/asoc.el.git
 [submodule "packages/emacs-ycmd"]
 	path = packages/emacs-ycmd
 	url = https://github.com/abingham/emacs-ycmd
 [submodule "packages/evil-collection"]
 	path = packages/evil-collection
 	url = https://github.com/emacs-evil/evil-collection.git
-[submodule "packages/f.el"]
-	path = packages/f.el
-	url = https://github.com/rejeep/f.el.git
 [submodule "packages/helpful"]
 	path = packages/helpful
 	url = https://github.com/Wilfred/helpful.git
@@ -28,18 +22,12 @@
 [submodule "packages/emacs-tabbar"]
 	path = packages/emacs-tabbar
 	url = https://github.com/flnth/emacs-tabbar.git
-[submodule "packages/treepy.el"]
-	path = packages/treepy.el
-	url = https://github.com/volrath/treepy.el.git
 [submodule "packages/pcache"]
 	path = packages/pcache
 	url = https://github.com/sigma/pcache.git
 [submodule "packages/dired-plus"]
 	path = packages/dired-plus
 	url = https://github.com/emacsmirror/dired-plus.git
-[submodule "packages/drag-stuff.el"]
-	path = packages/drag-stuff.el
-	url = https://github.com/rejeep/drag-stuff.el.git
 [submodule "packages/emacs-fish-completion"]
 	path = packages/emacs-fish-completion
 	url = https://gitlab.com/ambrevar/emacs-fish-completion.git
@@ -55,9 +43,6 @@
 [submodule "packages/move-border"]
 	path = packages/move-border
 	url = https://github.com/ramnes/move-border.git
-[submodule "packages/origami.el"]
-	path = packages/origami.el
-	url = https://github.com/gregsexton/origami.el.git
 [submodule "packages/quick-peek"]
 	path = packages/quick-peek
 	url = https://github.com/cpitclaudel/quick-peek.git
@@ -67,9 +52,6 @@
 [submodule "packages/textile-mode"]
 	path = packages/textile-mode
 	url = https://github.com/juba/textile-mode.git
-[submodule "packages/whist.el"]
-	path = packages/whist.el
-	url = https://github.com/flnth/whist.el.git
 [submodule "share"]
 	path = share
 	url = https://efth@bitbucket.org/efth/emacs-share.git
