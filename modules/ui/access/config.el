@@ -75,7 +75,7 @@
 
 ;;;; viewing pdfs from cloud (-> module access!)
 
-(setq dir_library (getenv "DIR_LIBRARY"))
+(setq dir_library (getenv "DIR_LIBRARY")))
 
 (defun fn-view-library-pdf-right-and-focus ()
   (interactive)
