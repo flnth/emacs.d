@@ -65,11 +65,13 @@
   (evil-define-key '(normal visual emacs motion emacs evilified) special-mode-map (kbd "gb") #'acc-ido-switch-buffer )
 
   :config
-  (setq counsel-rg-base-command (concat "rg -i --hidden --line-number --no-heading --color never "
-										(let ((ignore-file (concat dir_stackroot "etc/ripgrep_ignore")))
-										  (when (f-exists? ignore-file)
-											(concat "--ignore-file " ignore-file " ")))
-										"%s .")))
+  (run-with-timer
+   5 nil (lambda ()
+		   (setq counsel-rg-base-command (concat "rg -i --hidden --line-number --no-heading --color never "
+												 (let ((ignore-file (concat dir_stackroot "etc/ripgrep_ignore")))
+												   (when (f-exists? ignore-file)
+													 (concat "--ignore-file " ignore-file " ")))
+												 "%s ."))))
 
 ;;;; viewing pdfs from cloud (-> module access!)
 
