@@ -33,11 +33,13 @@
 	(let* ((auth (nth 0 (auth-source-search :host "h2712310.stratoserver.net"
 											:port 6667
 											:requires '(user secret))))
-		   (sec (plist-get auth :secret)))
+		   (pass (funcall (plist-get auth :secret))))
+	  (when (null pass)
+		(error "+chat-irc-connect-bitlbee:  could not get password from .authinfo.gpg"))
 	  (erc :server "h2712310.stratoserver.net"
 		   :port "6667"
 		   :nick "fthevissen"
-		   :password (funcall sec))))
+		   :password pass)))
 
   (add-to-list 'erc-sasl-server-regexp-list ".*")
 
@@ -318,8 +320,11 @@
 														   :port 5000
 														   :requires '(user secret))))
 						  (password (funcall (plist-get auth :secret)))
-						  (erc-args `(:server ,host :port ,port
-											  :nick ,user :password ,(format "%s:%s" user password)))
+						  (erc-args (progn
+									  (when (null password)
+										(error "znc-erc-connect: could not get password from .authinfo.gpg"))
+									  `(:server ,host :port ,port
+												:nick ,user :password ,(format "%s:%s" user password))))
 						  (erc-buffer (apply erc-fun erc-args)))
 					 (when (get-buffer buffer)
 					   (znc-kill-buffer-always buffer))
