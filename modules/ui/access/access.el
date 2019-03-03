@@ -721,12 +721,19 @@ otherwise."
   or purpose.")
 
 ;;;###autoload
+(defun +access-split-window-below-and-focus (&optional size)
+  "Split the window vertically and focus the new window."
+  (interactive)
+  (split-window-below size)
+  (windmove-down))
+
+;;;###autoload
 (defun +access-repl-window-create (new-repl-run-command)
   (popwin:without-special-displaying
    (without-purpose
 	 (let ((win (selected-window))
 		   (size (round (* (window-height) (- 1 +access-repl-window-size)))))
-	   (split-window-below-and-focus size)
+	   (+access-split-window-below-and-focus size)
 	   (+access-repl-create new-repl-run-command)
 	   (set-window-parameter win 'associated-repl (selected-window))))))
 
@@ -904,7 +911,7 @@ determine it if possible."
 		(size (round (* (window-height) (- 1  +access-eshell-window-size))))
 		(current-dir default-directory))
 	(without-purpose
-	  (split-window-below-and-focus size)
+	  (+access-split-window-below-and-focus size)
 	  (switch-to-buffer eshell-buf)
 	  ;; change/modify buf
 	  (unless (derived-mode-p 'eshell-mode)
