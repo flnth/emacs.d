@@ -58,3 +58,21 @@
 [submodule "packages/mmm-mode"]
 	path = packages/mmm-mode
 	url = https://github.com/purcell/mmm-mode.git
+[submodule "packages/asoc"]
+	path = packages/asoc
+	url = https://github.com/troyp/asoc.el.git
+[submodule "packages/f"]
+	path = packages/f
+	url = https://github.com/rejeep/f.el.git
+[submodule "packages/treepy"]
+	path = packages/treepy
+	url = https://github.com/volrath/treepy.el.git
+[submodule "packages/drag-stuff"]
+	path = packages/drag-stuff
+	url = https://github.com/rejeep/drag-stuff.el.git
+[submodule "packages/origami"]
+	path = packages/origami
+	url = https://github.com/gregsexton/origami.el.git
+[submodule "packages/whist"]
+	path = packages/whist
+	url = https://github.com/flnth/whist.el
