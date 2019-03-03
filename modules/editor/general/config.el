@@ -7,8 +7,7 @@
     (while (< (current-column) column)
       (insert-char char))))
 ;; drag-stuff  (M-up, M-down, ...)
-(use-package drag-stuff
-  :load-path "packages/drag-stuff.el")
+(use-package drag-stuff)
 ;;(drag-stuff-define-keys)
 (define-key evil-motion-state-map (kbd "<M-up>") 'drag-stuff-up)
 (define-key evil-motion-state-map (kbd "<M-down>") 'drag-stuff-down)

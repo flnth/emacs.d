@@ -206,7 +206,7 @@
 (use-package evil-collection-helpful-mod
   :load-path "packages")
 (require 'evil-collection-helpful-mod)
-(evil-collection-helpful-mode-setup)
+(evil-collection-helpful-mod-setup)
 
 ;; q to close helpful buffers
 (require 'helpful)

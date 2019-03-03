@@ -6,11 +6,13 @@
 (let* ((current-filename (or load-file-name
 							 (buffer-file-name)))
 
-	   (current-dir (file-name-directory current-filename)))
-  (setq porg--json (config-json-create :path (concat (f-slash current-dir)
-													 "porg."
-													 (system-name)
-													 ".json"))))
+	   (current-dir (file-name-directory current-filename))
+	   (json-path (concat dir_emacs "share/" "porg." (system-name) ".json")))
+  (when (not (f-exists? json-path))
+	(with-temp-buffer
+	  (insert "{}")
+	  (write-file json-path)))
+  (setq porg--json (config-json-create :path json-path)))
 
 (defun porg--json-get! (&optional force-reload)
   (if force-reload

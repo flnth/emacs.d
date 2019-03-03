@@ -5,7 +5,7 @@
 ;; value of the environment variable DIR_STACKROOT, or if that is not
 ;; set, the user's home directory."
 (setq dir_stackroot
-	  (let ((d (f-slash (getenv "DIR_STACKROOT"))))
+	  (let ((d (f-slash (getenv "STACKROOT"))))
 		(if (null d)
 			(f-slash (getenv "HOME"))
 		  (when (not (f-exists? d))

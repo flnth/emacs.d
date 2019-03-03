@@ -488,7 +488,7 @@ Calls `bench-multi' and `bench-multi-lexical', which see."
 
 ;; overwrite insert-spacer
 (use-package quick-peek
-  :load-path "packages/quick-peek")
+  :load-path "packages/quick-peek/")
 (defun quick-peek--insert-spacer (pos str-before str-after)
   "Insert a thin horizontal line at POS.
 Line is surrounded by STR-BEFORE and STR-AFTER."

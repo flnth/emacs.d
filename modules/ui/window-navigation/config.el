@@ -166,10 +166,10 @@ target-screen-line."
 		(let ((cmd (if (frame-parameter nil 'tmux) (export-tmux-socket-path-cmd) "" )))
 		  (shell-command-to-string
 		   (cond
-			((eq dir 'left) (concat cmd  "$ZDOTDIR/xnav.sh L 0" ))
-			((eq dir 'below) (concat cmd "$ZDOTDIR/xnav.sh D 0" ))
-			((eq dir 'above) (concat cmd "$ZDOTDIR/xnav.sh U 0" ))
-			((eq dir 'right) (concat cmd "$ZDOTDIR/xnav.sh R 0" )))))
+			((eq dir 'left) (concat cmd  "$ZDOTDIR/.zsh/utils/xnav.sh L 0" ))
+			((eq dir 'below) (concat cmd "$ZDOTDIR/.zsh/utils/xnav.sh D 0" ))
+			((eq dir 'above) (concat cmd "$ZDOTDIR/.zsh/utils/xnav.sh U 0" ))
+			((eq dir 'right) (concat cmd "$ZDOTDIR/.zsh/utils/xnav.sh R 0" )))))
 	  (cond
 	   ((eq dir 'left)	(shell-command-to-string "xmonadctl 1"))
 	   ((eq dir 'below)	(shell-command-to-string "xmonadctl 2"))

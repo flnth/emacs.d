@@ -27,7 +27,7 @@ values."
    ;; If non-nil layers with lazy install support are lazy installed.
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '( "~/system/emacs/spacemacs-custom-layers/" )
+   dotspacemacs-configuration-layer-path nil
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(restclient
@@ -45,7 +45,6 @@ values."
           )
      rust
      racket
-     fsharp
      sml
      (haskell :variables haskell-enable-hindent-style "johan-tibell")
      finance
@@ -214,6 +213,7 @@ values."
 									  cquery
 									  request-deferred
 									  org-attach-screenshot
+									  helm-projectile
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -517,99 +517,105 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-  (require 'use-package)
-  (require 'auth-source)
+;;  (require 'use-package)
+;;  (require 'auth-source)
   ;; (auth-source-search :max 1 :host "irc.freenode.net")
 
   (message "\n----- loading custom configuration -------------------------------")
 
-  (add-to-list 'load-path (concat dir_emacs "modules/"))
 
-  (require 's)
-  (require 'dash)
-  (require 'window-purpose)
+(add-to-list 'load-path (getenv "DIR_EMACSD"))
+(add-to-list 'load-path (concat (getenv "DIR_EMACSD") "/modules"))
 
-  ;; -- core
-  (load "core/paths/config")
-  (load "core/utils/config")
-  (load "core/general/config")
-  (load "core/on-exit/config")
-  (load "core/on-startup/config")
-  (load "core/spacemacs/config")
+(let ((default-directory (getenv "DIR_EMACSD")))
+  (normal-top-level-add-subdirs-to-load-path)
+  )
 
-  ;; -- editor
-  (load "editor/code-folding/config")
-  (load "editor/general/config")
-  (load "editor/horizontal-rulers/config")
-  (load "editor/multiple-cursors/config")
-  (load "editor/scrolling/config")
+(require 's)
+(require 'dash)
+(require 'window-purpose)
+;;
+;;  ;; -- core
+(load "core/paths/config")
+(load "core/utils/config")
+(load "core/general/config")
+(load "core/on-exit/config")
+(load "core/on-startup/config")
+(load "core/spacemacs/config")
+;;
+;;  ;; -- editor
+(load "editor/code-folding/config")
+(load "editor/general/config")
+(load "editor/horizontal-rulers/config")
+(load "editor/multiple-cursors/config")
+(load "editor/scrolling/config")
+;;
+;;  ;; -- feature
+(load "feature/general/config")
+(load "feature/chat/config")
+(load "feature/compilation/config")
+(load "feature/diff/config")
+(load "feature/eshell/config")
+(load "feature/git-gutter/config")
+(load "feature/helm/config")
+(load "feature/history/config")
+(load "feature/magit/config")
+(load "feature/config-json/config")
+(load "feature/porg/config")
+(load "feature/org/config")
+(load "feature/org-agenda/config")
+(load "feature/printing/config")
+(load "feature/redmine/config")
+(load "feature/cmake/config")
+(load "feature/lsp/config")
+(load "feature/lsp-cquery/config")
+(load "feature/lsp-supervisor/config")
+(load "feature/plantuml/config")
+(load "feature/pm/config")
+ ;; (require 'lsp-mode)
+ ;; -- ipc
+ ;; (load "ipc/dbus-interface/config")
 
-  ;; -- feature
-  (load "feature/general/config")
-  (load "feature/chat/config")
-  (load "feature/compilation/config")
-  (load "feature/diff/config")
-  (load "feature/eshell/config")
-  (load "feature/git-gutter/config")
-  (load "feature/helm/config")
-  (load "feature/history/config")
-  (load "feature/magit/config")
-  (load "feature/config-json/config")
-  (load "feature/porg/config")
-  (load "feature/org/config")
-  (load "feature/org-agenda/config")
-  (load "feature/printing/config")
-  (load "feature/redmine/config")
-  (load "feature/cmake/config")
-  (load "feature/lsp/config")
-  (load "feature/lsp-cquery/config")
-  (load "feature/lsp-supervisor/config")
-  (load "feature/plantuml/config")
-  (load "feature/pm/config")
-  ;;(require 'lsp-mode)
-  ;; -- ipc
-  ;; (load "ipc/dbus-interface/config")
-
-  ;; -- lang
-  (load "lang/cc/config")
-  (load "lang/haskell/config")
-  (load "lang/java/config")
-  (load "lang/lisp/config")
-  (load "lang/markup/config")
-  (load "lang/python/config")
-  (load "lang/web/config")
-  (load "lang/debug-mode/config")
-  (load "lang/ert/config")
-
-  ;; -- mail
-  (load "mail/config")
-
-  ;; -- ui
-  (load "ui/access/config")
-  (load "ui/code-navigation/config")
-  (load "ui/completion/config")
-  (load "ui/evil/config")
-  (load "ui/general/config")
-  (load "ui/tabbar/config")
-  (load "ui/theme/config")
-  (load "ui/tmux/config")
-  (load "ui/tty/config")
-  (load "ui/tty-colors/config")
-  (load "ui/window-management/config")
-  (load "ui/window-navigation/config")
-  (load "ui/treemacs/config")
-  (load "ui/header-line/config")
-  (load "ui/prettify/config")
-  ;; (load "ui/dired/config")
-
-  ;; -- app
-  (load "app/elfeed/config")
-
-  (message "--------------------------------------------------------------------\n")
-
-  (spacemacs/toggle-truncate-lines-on)
-
-  ) ;; ------------------------------------------------------------------------------
+;; -- lang
+(load "lang/cc/config")
+(load "lang/haskell/config")
+(load "lang/java/config")
+(load "lang/lisp/config")
+ (load "lang/markup/config")
+ (load "lang/python/config")
+ (load "lang/web/config")
+ (load "lang/debug-mode/config")
+ (load "lang/ert/config")
+;;
+;;  ;; -- mail
+;;  (load "mail/config")
+;;
+;;  ;; -- ui
+(load "ui/access/config")
+(load "ui/code-navigation/config")
+(load "ui/completion/config")
+(load "ui/evil/config")
+(load "ui/general/config")
+(load "ui/tabbar/config")
+(load "ui/theme/config")
+(load "ui/tmux/config")
+(load "ui/tty/config")
+(load "ui/tty-colors/config")
+(load "ui/window-management/config")
+(load "ui/window-navigation/config")
+(load "ui/treemacs/config")
+(load "ui/header-line/config")
+(load "ui/prettify/config")
+ (load "ui/dired/config")
+;;
+;;  ;; -- app
+ (load "app/elfeed/config")
+;;
+;;  (message "--------------------------------------------------------------------\n")
+;;
+ (spacemacs/toggle-truncate-lines-on)
+;;
+) ;; ------------------------------------------------------------------------------
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -619,13 +625,7 @@ you should place your code here."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-nil;; -*- mode: emacs-lisp -*-
-nil;; This file is where Emacs writes custom variables.
-nil;; Spacemacs will copy its content to your dotfile automatically in the
-nil;; function `dotspacemacs/emacs-custom-settings'.
-nil;; Do not alter this file, use Emacs customize interface instead.
 
-nil
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

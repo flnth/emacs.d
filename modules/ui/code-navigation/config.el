@@ -463,9 +463,9 @@ ycmd--handle-detailed-info-response"
 
 (defun fn-load-ycmd ()
   (interactive)
-  (use-package ycmd  :load-path "package/emacs-ycmd")
-  (use-package company-ycmd :load-path "package/company-ycmd")
-  (use-package 'ycmd-eldoc :load-path "package/company-ycmd")
+  (use-package ycmd)
+  (use-package company)
+  (use-package ycmd-eldoc)
   (company-ycmd-setup)
 
   (setq ycmd-global-config (concat dir_stackroot "etc/ycmd/ycm_extra_conf.py") )

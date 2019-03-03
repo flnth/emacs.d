@@ -1,8 +1,7 @@
 ;; modules/core/general/config.el    -*- lexical-binding: t; -*-
 
 ;;;; mmm-mode
-(use-package mmm-mode
-  :load-path "packages/mmm-mode")
+(use-package mmm-mode)
 
 ;;;; prog modes
 (defun +general-prog-mode-config ()

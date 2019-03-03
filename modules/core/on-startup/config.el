@@ -3,11 +3,11 @@
 (require 'f)
 
 ;; ---- byte-compile modules after boot
-(ignore-errors
-  (let ((filename "/tmp/emacs_system_bytecompiled"))
-	(when (not (f-exists-p filename))
-	  (byte-recompile-directory (concat dir_emacs "modules") 0 t )
-	  (f-append " " 'utf-8 filename))))
+;; (ignore-errors
+;;   (let ((filename "/tmp/emacs_system_bytecompiled"))
+;; 	(when (not (f-exists-p filename))
+;; 	  (byte-recompile-directory (concat dir_emacs "modules") 0 t )
+;; 	  (f-append " " 'utf-8 filename))))
 
 ;; ---- auto-connect bitlbee at work
 (when (and (string= (getenv "LOC") "work")
