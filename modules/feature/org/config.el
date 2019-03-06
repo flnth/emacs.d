@@ -271,6 +271,9 @@
 
   (advice-add #'org-switch-to-buffer-other-window :override #'fn--org-window-handler)
 
+  ;; TODO: without this, archiving entries doesn not work. Fix possible?
+  (defun org-preserve-local-variables (&rest _))
+
   (+org--config-capture))
 
 (use-package org-tempo
