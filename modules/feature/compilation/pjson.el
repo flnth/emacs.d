@@ -3,15 +3,15 @@
 ;;; json
 
 (require 'json)
-(setq pjson-file-path (concat dir_emacs 
-						   "share/projects."
-						   (system-name)
-						   ".json"))
+(setq pjson-file-path (concat (f-slash dir_emacs)
+							  "share/projects."
+							  (system-name)
+							  ".json"))
 
 ;; TODO:  integrate into my json-library proper:  file does not exist
 (when (not (f-exists? pjson-file-path))
 	(with-temp-buffer
-	 (insert "{}") 
+	 (insert "{}")
 	  (write-file pjson-file-path)))
 
 (setq pjson-file-contents nil)

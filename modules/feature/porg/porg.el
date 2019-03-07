@@ -7,7 +7,7 @@
 							 (buffer-file-name)))
 
 	   (current-dir (file-name-directory current-filename))
-	   (json-path (concat dir_emacs "share/" "porg." (system-name) ".json")))
+	   (json-path (concat (f-slash dir_emacs) "share/" "porg." (system-name) ".json")))
   (when (not (f-exists? json-path))
 	(with-temp-buffer
 	  (insert "{}")
