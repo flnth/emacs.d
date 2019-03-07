@@ -467,10 +467,11 @@ ycmd--handle-detailed-info-response"
   (use-package company)
   (use-package company-ycmd)
   (use-package ycmd-eldoc)
+  (use-package company-ycmd)
   (company-ycmd-setup)
 
-  (setq ycmd-global-config (concat dir_stackroot "etc/ycmd/ycm_extra_conf.py") )
-  (setq ycmd-server-command (list "python3" (concat dir_stackroot "opt/ycmd/ycmd") ))
+  (setq ycmd-global-config (concat dir_stackroot "etc/ycmd/ycm_extra_conf.py"))
+  (setq ycmd-server-command (list "python3_" (concat dir_stackroot "opt/ycmd/ycmd")))
 
   (add-hook 'c++-mode-hook 'ycmd-mode)
   (add-hook 'c++-mode-hook
