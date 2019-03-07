@@ -14,7 +14,7 @@
 ;;
 
 ;;;; notifications on message
-(defun +tmux-notify-erc-on-message (nickname message buffer)
+(defun +tmux-notify-erc-on-message (nickname message buffer &rest)
   "Called to display chat message as tmux notification."
   (let* ((nickname (s-trim nickname))
 		 (length-nickname (length nickname))
@@ -26,10 +26,9 @@
 		 (tmux-text (s-pad-right (+ +tmux-notify-notification-length 26)
 								 " " (concat "#[fg=colour1]" nickname ": "
 											 "#[fg=colour7]" message))))
-	(+tmux-notify-show-notification tmux-text +tmux-notify-notification-default-time)
-	;; (message tmux-text)
-	;; (message "length: %s" (- (length tmux-text) 26))
-	))
+	;; TODO:  do clean dependency
+	(when (+tmuxp)
+	  (+tmux-notify-show-notification tmux-text +tmux-notify-notification-default-time))))
 
 (add-hook 'ercn-notify-hook '+tmux-notify-erc-on-message)
 
