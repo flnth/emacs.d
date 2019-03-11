@@ -156,8 +156,9 @@
 
 ;;;; history access
 
-  (setq erc-log-dir (concat dir_emacs
-							"share/cache/erc-logs/"))
+  ;; TODO: what if STACKROOT not (well-)defined? what if directories don't exist?
+  (setq erc-log-dir (concat (f-slash (getenv "STACKROOT"))
+							"share/logs/erc/"))
 
 ;;;; auto join
 
