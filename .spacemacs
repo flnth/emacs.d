@@ -1560,6 +1560,7 @@ h3 { margin-bottom: 0px; }
  '(zoom-ignored-buffer-names '("*ielm*"))
  '(zoom-ignored-major-modes '(inferior-emacs-lisp-mode))
  '(zoom-size '(0.618 . 0.618)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
