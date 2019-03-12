@@ -64,5 +64,5 @@
 	found))
 
 ;; start imapd
-(run-with-timer 2 nil #'(lambda ()
-						  (imapd-start)))
+;; (run-with-timer 2 nil #'(lambda ()
+;; 						  (imapd-start)))
