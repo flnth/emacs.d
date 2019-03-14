@@ -305,6 +305,7 @@ lines. Aligns elements on the lading comma or semicolon."
 
 ;;;;; keys
 (define-key c++-mode-map (kbd "<f4>") '+cc-find-other-file)
+(define-key c++-mode-map (kbd "<M-O>-s") '+cc-find-other-file)
 ;; (define-key c++-mode-map (kbd "C-e") 'helm-gtags-find-tag)
 ;; (define-key c++-mode-map (kbd "C-S-e") 'helm-gtags-find-tag-other-window)
 ;; (define-key c++-mode-map (kbd "<M-left>") 'helm-gtags-previous-history)
@@ -315,6 +316,7 @@ lines. Aligns elements on the lading comma or semicolon."
 ;; (define-key c++-mode-map (kbd "<C-tab>") #'outline-cycle)
 
 (define-key c-mode-map (kbd "<f4>") '+cc-find-other-file)
+(define-key c-mode-map (kbd "<M-O>-s") '+cc-find-other-file)
 ;; (define-key c-mode-map (kbd "C-e") 'helm-gtags-find-tag)
 ;; (define-key c-mode-map (kbd "C-S-e") 'helm-gtags-find-tag-other-window)
 ;; (define-key c-mode-map (kbd "<M-left>") 'helm-gtags-previous-history)
