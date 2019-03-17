@@ -645,6 +645,124 @@ lines. Aligns elements on the lading comma or semicolon."
 
 ;;   )
 
+;;;;; file/class creation
+
+(defun +cc--prop-string (s)
+  (propertize s 'face '(:foreground "#ac443f")))
+
+(defun +cc--get-path ()
+  "Queries for a path from default-directory in the form
+  <default-directory>/NAME, creating directories as necessary,
+  checking the result for validity, erroring out if necessary,
+  returning string tuple (PATH,CLASSNAME) on success."
+  (let* ((full-path (read-string (+cc--prop-string "Path: ")
+								 (concat (f-slash default-directory) "classname")))
+		 (dir (f-dirname full-path))
+		 (classname (f-filename full-path)))
+	(when (or (string= "" dir) (string= "" classname))
+	  (error "Invalid path or classname"))
+	(list (f-slash dir) classname)))
+
+(defvar +cc--default-namespaces (list "indurad" "iloadout")
+  "A list of namespaces new classes and methods created with
+  +cc-new-class are put below by-default.")
+
+(defun +cc--query-list (query &optional default)
+  "Queries for a list of namespaces, defaulting to +cc--default-namespaces."
+  (mapcar #'symbol-name (read (read-string (+cc--prop-string query)
+										   (if default (format "%s" default)
+											 "()")))))
+
+(defun +cc--query-val (query &optional default)
+  (read-string (+cc--prop-string query)
+			   (when default (format "%s" default))))
+
+(defun random-alnum ()
+  (let* ((alnum "abcdefghijklmnopqrstuvwxyz0123456789")
+         (i (% (abs (random)) (length alnum))))
+    (substring alnum i (1+ i)))
+  )
+
+(defun +cc--gen-random-hash ()
+  (labels ((random-alnum ()
+			(let* ((alnum "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+				   (i (% (abs (random)) (length alnum))))
+			  (substring alnum i (1+ i)))))
+	(mapconcat (lambda (s) (random-alnum)) '("" "" "" "" "") "")))
+
+(defun +cc--expand-snippet (name env)
+  "Expands snippet NAME at point. "
+  (insert name)
+  (yas-expand-snippet (yas-lookup-snippet name) (point) (point) env))
+
+(defun +cc-new-class ()
+  "Creates file for class given name in default-directory, put in
+  namespaces as queried, creating custom include-guards,
+  inheriting from classes as queried and creating sane defaults
+  for known ones (i.e. iframework operators etc.)
+   pre-creating a constructor, and methods."
+  (interactive)
+  (-let* ((yas-snippet-dirs (list (concat dir_emacs "/share/newfile/new")))
+		  ((directory classname) (+cc--get-path) )
+		  (header (concat (f-slash directory) classname ".h"))
+		  (source (concat (f-slash directory) classname ".cpp")))
+
+	;; existing files?
+	(when (or (f-exists? header) (f-exists? source))
+	  (when (not (y-or-n-p "File(s) exist, overwrite?"))
+		(error "Cancelled.")))
+
+	(-let* ((namespaces (+cc--query-list "Namespaces: " +cc--default-namespaces))
+			(baseclass (+cc--query-val "Base-Class: " ))
+			(include-guard (concat (s-upcase classname) "_H_" (+cc--gen-random-hash))))
+
+	  ;; header-file
+	  (with-temp-buffer
+		(c++-mode)
+		(yas-expand-snippet (yas-lookup-snippet "header")
+							(point)
+							(point)
+							(list `(classname ,classname)
+								  `(include-guard ,include-guard)
+								  `(namespaces (list ,@namespaces))
+								  `(baseclass ,baseclass)))
+		(write-file header))
+
+	  ;; source-file
+	  (with-temp-buffer
+		(c++-mode)
+		(yas-expand-snippet (yas-lookup-snippet "source")
+							(point)
+							(point)
+							(list `(classname ,classname)
+								  `(namespaces (list ,@namespaces))
+								  `(baseclass ,baseclass)))
+		(write-file source))
+
+	  ;; close existing buffers of that name and path
+	  (let ((header-buf (get-buffer (concat classname ".h")))
+			(source-buf (get-buffer (concat classname ".cpp"))))
+		(when (string= (buffer-file-name header-buf) header)
+		  (kill-buffer header-buf))
+		(when (string= (buffer-file-name source-buf) source)
+		  (kill-buffer source-buf)))
+
+	  ;; show created header
+	  (let ((buffer (find-file-noselect header t)))
+		(if (listp buffer)
+			(mapcar 'pop-to-buffer-same-window (nreverse buffer))
+		  (pop-to-buffer-same-window buffer)))
+
+	  ;; stage new files, ignoring if there are errors
+	  (ignore-errors
+		(magit-stage-file source)
+		(magit-stage-file header))
+
+	  ;; optionally show nearest cmakelists
+	  (when (y-or-n-p "Find nearest CMakeLists.txt?")
+		(let ((cmakelists-dir (locate-dominating-file default-directory "CMakeLists.txt")))
+		  (when cmakelists-dir
+			(find-file (concat (f-slash cmakelists-dir) "CMakeLists.txt" ) )))))))
 
 
 
