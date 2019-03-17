@@ -23,11 +23,13 @@
 			(make-directory d t))
 		  d)))
 
+;; TODO: find directory
+(setq dir_library (getenv "DIR_LIBRARY"))
+
 ;; ---------------------------------------------------------
 (add-to-list 'load-path dir_emacs)
 (add-to-list 'load-path (concat dir_emacs "/packages/f.el"))
 
 (add-to-list 'yas-snippet-dirs
 			 (concat dir_emacs "/share/yasnippets" ))
-
 
