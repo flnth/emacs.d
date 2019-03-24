@@ -6,32 +6,40 @@
 
 ;;;; public interface
 
+;; TODO:  test for paths containing special symbols i.e. ~, might have to be xpanded...
+
 ;; ---------------------------------------------------------
 ;;;;; creation, display
 (cl-defun pm-create (&key name root meta-dir prompt-prefix)
   "Creates a pm-project from NAME ROOT META-DIR. Will query the
 user for missing arguments. And sync all buffers upon creation."
+  (interactive)
   (let* ((name
 		  (if name (cond ((symbolp name) name)
 						 ((stringp name) (intern name))
 						 (t (error "Invalid project name: %s" name)))
 			(pm--query (concat prompt-prefix "project-name> ") "" 'symbol)))
-		 (proot (projectile-project-root))
-		 (root
-		  (if root (if (f-exists? root) root
+		 (proot (f-expand (projectile-project-root)))
+		 (root (if root
+				   (if (f-exists? root) (f-expand root)
 					 (when (y-or-n-p (format "Root directory '%s' does not exist. Create?" root))
 					   (make-directory root t)
-					   root))
-			(pm--query (concat prompt-prefix "root> ") (if proot proot default-directory) 'directory)))
+					   (f-expand root)))
+				 (f-expand (pm--query (concat prompt-prefix "root> ") (if proot (f-expand proot) (f-expand default-directory)) 'directory))))
 		 (meta-dir
 		  (if meta-dir (if (f-exists? meta-dir) meta-dir
 						 (when (y-or-n-p (format "Meta-dir directory '%s' does not exist. Create?" meta-dir))
 						   (make-directory meta-dir t)
 						   meta-dir))
-			(pm--query (concat prompt-prefix "meta-dir> ") root 'directory)))))
+			(pm--query (concat prompt-prefix "meta-dir> ") root 'directory))))
 
-  (pm-locals-create root (pm-locals--main-stash-create root name meta-dir))
-  (pm-locals-update-buffers root))
+	;; create main stash in $root/.dir-locals.el, and update all buffers below it
+	(pm-locals-create root (pm-locals--main-stash-create root name meta-dir) t)
+	(pm-locals-update-buffers root)
+	;; open .dir-locals.el e.g. via projectile SPC-pe if desired.
+	;; TODO: make sure that when saving .dir-locals.el, all buffers below are updated.
+	)
+  )
 
 
 ;; ---------------------------------------------------------
@@ -147,7 +155,7 @@ UPDATE-BUFFERS is t, update dir-locals in all buffers below."
   t, variables that exist in-memory, but not in .dir-locals.el,
   are synchronized as well. Otherwise, only those already present
   in .dir-locals.el are written."
-
+  ;; TODO implement (or find alternative)
   )
 
 ;; ---------------------------------------------------------

@@ -113,8 +113,8 @@ printed."
 			  root))
 	(signal 'file-missing (list 'f-exists? root)))
   (let ((root (f-slash root))
-		(ex-cache (ignore-errors (pm-locals-read-file root)))
-		(ex-file (ignore-errors (pm-locals-read-cache root)))
+		(ex-cache (ignore-errors (pm-locals-read-cache root)))
+		(ex-file (ignore-errors (pm-locals-read-file root)))
 		(new-stash initial)
 		(root-sym (intern (s-collapse-whitespace root))))
 	(setf (+alist-get '(nil projectile-project-root) new-stash)
@@ -164,12 +164,11 @@ return the first stash that has been found."
 				  (pm-locals-find-cache default-directory pm-locals--main-vars-template)))
 		 (file  (when (not cache)
 				  (ignore-errors
-					(concat (f-slash (pm-locals-find-file default-directory pm-locals--main-vars-template)))))))
+					(f-slash (pm-locals-find-file default-directory pm-locals--main-vars-template))))))
 	(concat (f-slash
-			 (cond (cache cache)
+			 (cond (cache (concat cache ".dir-locals.el"))
 				   (file file)
-				   (t (signal 'main-stash-missing (list (format "Searched upwards from: %s" from-path))))))
-			".dir-locals.el")))
+				   (t (signal 'main-stash-missing (list (format "Searched upwards from: %s" from-path)))))))))
 
 (cl-defun pm-locals-find-files-downwards (&optional (from-path default-directory) template depth)
   "Like pm-locals-find-file, but searches downwards the
@@ -233,7 +232,7 @@ that satisfies TEMPLATE, if given, and return its directory."
   (when (not (string= (f-filename path) ".dir-locals.el"))
 	(setf path (concat (f-slash path) ".dir-locals.el")))
   (when (not (f-exists? path))
-	(signal 'file-missing '(path)))
+	(signal 'file-missing (list path)))
 
   (with-temp-buffer
 	(insert-file-contents-literally path)
@@ -285,6 +284,7 @@ that satisfies TEMPLATE, if given, and return its directory."
 	  (signal 'file-error (list fpath)))
 	(f-delete fpath)))
 
+;; TODO:  a cache can be found, but not be deletable?!
 (cl-defun pm-locals-delete-cache (path)
   (let* ((path (f-slash path))
 		 (path-sym (intern (s-collapse-whitespace path)))
@@ -295,6 +295,12 @@ that satisfies TEMPLATE, if given, and return its directory."
 		  (map-delete dir-locals-class-alist path-sym))
 	(setf dir-locals-directory-cache
 		  (map-remove (lambda (key val) (string= key path)) dir-locals-directory-cache))))
+
+;; TODO:  pm-locals-update-cache
+;;   - e.g. from main file
+
+;; TODO:  pm-locals-update-file
+;;   - e.g. from cache
 
 ;; ---------------------------------------------------------
 
@@ -331,7 +337,7 @@ currently not used."
 													(length (f-full c2))))))
 
 	;; ---- loop -----
-	(dolist (buf (buffer-list))
+	(dolist (buf (buffer-list)) 		; TODO:  make macro out of this, taking optional mode-argument or something.
 	  (let ((buf-dir (f-slash (f-dirname (or (buffer-file-name buf)
 											 default-directory)))))
 		;; for every buffer below root:
@@ -368,13 +374,14 @@ currently not used."
   ;; then, stop
 
   (let ((stashes (list (ignore-errors
-					   (pm-locals-find-cache default-directory))))
+						 (pm-locals-find-cache default-directory))))
 		(do-search t)
 		(main-found nil))
 	(when (and (not (null (car stashes)))
 			   (pm-locals--is-main-stash (pm-locals-read-cache (car stashes))))
 	  (setf do-search nil)
 	  (setf main-found t))
+
 	(while do-search
 	  (let ((stash (ignore-errors
 					 (pm-locals-find-cache (f-parent (car stashes))))))
@@ -503,14 +510,20 @@ updated."
 				(setq variables (dir-locals-collect-mode-variables
 								 alist variables))))))))))
 
+;; TODO: defsubst?
 (cl-defsubst pm--apply-local-variables (vars &optional (buf (current-buffer)))
   (dolist (elt vars)
 	;; (unless (memq (car elt) '(eval mode))
-	;;   ;; TODO:  how to implement the functionality for eval and mode?
 	;;   ;; (setq dir-local-variables-alist
 	;;   ;; 	  (assq-delete-all (car elt) dir-local-variables-alist))
 	;;   )
-	;; TODO: efficiency? better to do with-current-buffer, or like this?
+
+	;; TODO:  how to implement the functionality for eval and mode? don't want to load buffers!
+	;;  do _not_ want to do this!
+	;; (when (eq (car elt) 'eval)
+	;;   (with-current-buffer buf
+	;; 	(eval (cdr elt))))
+
 	(setf (buffer-local-value (car elt) buf) (cdr elt))))
 
 (defun +locate-dominating-file-downwards (dir name depth)
