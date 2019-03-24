@@ -17,6 +17,10 @@
 		lsp-auto-guess-root t			; auto-guess root
 		;; -32800 default, -32603: internal error, -32002: server not initialized
 		lsp--silent-errors '(-32800 -32603 -32002)
+		lsp-eldoc-hook '(lsp-document-highlight lsp-hover)
+		;; lsp-eldoc-hook '(lsp-hover)
+		lsp-eldoc-enable-hover t ; eldoc display in minibuffer and top right corner both
+		lsp-eldoc-render-all nil ; eldoc displays signature only, or help as well
 		;; company-transformers nil     ; ?
 		;; company-lsp-async t          ; ?
 		;; company-lsp-cache-candidates nil ; ?
@@ -29,7 +33,9 @@
   (use-package lsp-ui
 	:ensure t
 	:config
-	(setq lsp-ui-sideline-ignore-duplicate t)
+	(setq lsp-ui-sideline-enable nil
+	      lsp-ui-sideline-ignore-duplicate t
+		  lsp-ui-sideline-show-symbol t)
 	;; (add-hook 'lsp-mode-hook 'lsp-ui-mode)
 
 	)
@@ -41,7 +47,10 @@
   ;; install LSP company backend for LSP-driven completion
   (use-package company-lsp
 	:ensure t
-	;; :config
+	:config
+	(setq company-transformers nil ;; global?
+		  company-lsp-async t
+		  company-lsp-cache-candidates nil)
 	;; (push 'company-lsp company-backends)
 	)
 
@@ -57,75 +66,82 @@
           "/home/fthevissen/software/local/bin/Microsoft.Python.LanguageServer")
   	)
 
+  (use-package lsp-ui-doc
+	:after lsp-mode
 
-  ;; (require 'lsp-python-ms)
+	:config
+	(setq lsp-ui-doc-enable nil
+		  lsp-ui-doc-include-signature t
+		  )
 
-  (defun +lsp-trigger-ui-doc ()
-	"Manually triggers rendering of ui documentation."
-	(interactive)
+	;; (require 'lsp-python-ms)
 
-	;; install hook for display
-	(add-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover nil t)
-	(let* ((lexical-binding t)
-		   (request-id (cl-incf lsp-hover-request-id))
-		   signature-response hover-response)
-	  (if (lsp--capability "signatureHelpProvider")
-		  (lsp-request-async
-		   "textDocument/signatureHelp"
-		   (lsp--text-document-position-params)
-		   (lambda (signature-help)
-			 (when (eq request-id lsp-hover-request-id)
-			   (lsp--display-signature-or-hover
-				(setf signature-response (or signature-help :empty))
-				hover-response))))
-		(setf signature-response :empty))
-	  (if (lsp--capability "hoverProvider")
-		  (lsp-request-async
-		   "textDocument/hover"
-		   (lsp--text-document-position-params)
-		   (lambda (hover)
-			 (when (eq request-id lsp-hover-request-id)
-			   (setf hover-response (or hover :empty))
-			   (lsp--display-signature-or-hover signature-response hover-response))))
-		(setf hover-response :empty)))
+	(defun +lsp-trigger-ui-doc ()
+	  "Manually triggers rendering of ui documentation."
+	  (interactive)
 
-	(cl-labels ((clear-display ()		; clear display on any command
-							   (lsp-ui-doc--display 'nop "")
-							   (run-with-timer 0.5 nil (lambda ()
-							   							 (remove-hook 'post-command-hook #'clear-display)))
-							   ))
+	  ;; install hook for display
+	  (add-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover nil t)
+	  (let* ((lexical-binding t)
+			 (request-id (cl-incf lsp-hover-request-id))
+			 signature-response hover-response)
+		(if (lsp--capability "signatureHelpProvider")
+			(lsp-request-async
+			 "textDocument/signatureHelp"
+			 (lsp--text-document-position-params)
+			 (lambda (signature-help)
+			   (when (eq request-id lsp-hover-request-id)
+				 (lsp--display-signature-or-hover
+				  (setf signature-response (or signature-help :empty))
+				  hover-response))))
+		  (setf signature-response :empty))
+		(if (lsp--capability "hoverProvider")
+			(lsp-request-async
+			 "textDocument/hover"
+			 (lsp--text-document-position-params)
+			 (lambda (hover)
+			   (when (eq request-id lsp-hover-request-id)
+				 (setf hover-response (or hover :empty))
+				 (lsp--display-signature-or-hover signature-response hover-response))))
+		  (setf hover-response :empty)))
 
-	  (run-with-timer 0.2 nil  ; remove display hook after short period of time,
-					  #'(lambda ()	   ; clear display on first command received
-						  (add-hook 'post-command-hook #'clear-display)
-						  (remove-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover t)) )
+	  (cl-labels ((clear-display ()		; clear display on any command
+								 (lsp-ui-doc--display 'nop "")
+								 (run-with-timer 0.5 nil (lambda ()
+							   							   (remove-hook 'post-command-hook #'clear-display)))
+								 ))
+
+		(run-with-timer 0.2 nil	; remove display hook after short period of time,
+						#'(lambda ()	; clear display on first command received
+							(add-hook 'post-command-hook #'clear-display)
+							(remove-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover t)) )
+		)
 	  )
 
-	)
-
-  ;; fix child-frame font size
-  (defun lsp-ui-doc--render-buffer (string symbol)
-	"Set the buffer with STRING."
-	(lsp-ui-doc--with-buffer
-	 (erase-buffer)
-	 (let ((inline-p (lsp-ui-doc--inline-p))
-		   (fontsize (face-attribute 'default :height (selected-frame)))
-		   )
-       (insert (concat (unless inline-p (propertize "\n" 'face '(:height 0.2)))
-                       (-> (replace-regexp-in-string "`\\([\n]+\\)" ""
-													 (propertize  string 'face `(:height ,fontsize)))
-                           (string-trim-right))
-                       (unless inline-p (propertize "\n\n" 'face '(:height 0.3)))))
-	   (lsp-ui-doc--make-clickable-link)
-	   (setq-local face-remapping-alist `((header-line lsp-ui-doc-header)))
-	   (setq-local window-min-height 1)
-	   (setq header-line-format (when lsp-ui-doc-header (propertize  (concat " " symbol) 'face `(:height ,(+ fontsize 20))))
-			 mode-line-format nil
-			 cursor-type nil))
-	 ))
+	;; fix child-frame font size
+	(defun lsp-ui-doc--render-buffer (string symbol)
+	  "Set the buffer with STRING."
+	  (lsp-ui-doc--with-buffer
+	   (erase-buffer)
+	   (let ((inline-p (lsp-ui-doc--inline-p))
+			 (fontsize (face-attribute 'default :height (selected-frame)))
+			 )
+		 (insert (concat (unless inline-p (propertize "\n" 'face '(:height 0.2)))
+						 (-> (replace-regexp-in-string "`\\([\n]+\\)" ""
+													   (propertize  string 'face `(:height ,fontsize)))
+							 (string-trim-right))
+						 (unless inline-p (propertize "\n\n" 'face '(:height 0.3)))))
+		 (lsp-ui-doc--make-clickable-link)
+		 (setq-local face-remapping-alist `((header-line lsp-ui-doc-header)))
+		 (setq-local window-min-height 1)
+		 (setq header-line-format (when lsp-ui-doc-header (propertize  (concat " " symbol) 'face `(:height ,(+ fontsize 20))))
+			   mode-line-format nil
+			   cursor-type nil))
+	   )))
 
 
-  ;; fix lsp-ui-sideline-mode
+  ;; fix lsp-ui-sideline-mode:
+  ;;
   (define-minor-mode lsp-ui-sideline-mode
 	"Minor mode for showing information of current line."
 	:init-value nil
