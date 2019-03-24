@@ -185,6 +185,50 @@
       (remove-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover t)
       (remove-hook 'delete-frame-functions 'lsp-ui-doc--on-delete t))))
 
+  ;; convention:  enable lsp when +lsp-enable is set in newly-opened file
+  (defun +lsp-enable-if ()
+	(interactive)
+	(when (boundp '+lsp-enabled)
+	  (if +lsp-enabled (lsp) (setf lsp-mode nil)))
+	nil)
+  (add-hook #'find-file-hook #'+lsp-enable-if t)
+
+  ;; TODO:  vars that are actively monitored for change:
+  ;;    - two types of variables:
+  ;;      a) state-variables,     required for using emacs defuns
+  ;;      b) on-change variables, can (in addition) cause code to run when
+  ;;         change detected for side-effects
+  ;; Maybe introduce simple callback mechanism, i.e. hooks of the form of
+  ;;    (pm-locals-on-changed 'var #'fun ),  fun gets 'var, old and new val and path.; 
+
+  ;; TODO:  move this into pm-framework, somewhere.
+  ;; TODO:  extend for non-just-c++-mode things
+  (defun +lsp-toggle-below (root onoff)
+	"Turns lsp mode ON or OFF in all open c++-buffers below root."
+	(message "+lsp-toggle-below:  %s %s" root onoff)
+	(dolist (buf (buffer-list)) ; TODO: make macro out of this inside pm library, see pm-locals-update-buffers
+	  (let ((buf-dir (f-slash (f-dirname (or (buffer-file-name buf)
+											 default-directory)))))
+		;; for every cpp-buffer buffer below root
+		(when (and (string-prefix-p root buf-dir)
+				   (eq (buffer-local-value 'major-mode buf) 'c++-mode))
+		  (with-current-buffer buf
+			(if onoff
+				(progn (lsp) (lsp-mode))
+			  (setf lsp-mode nil)))))))
+
+  ;; manual update:
+  (defun +lsp-toggle-on-pm-locals-change (stash-file old new)
+	(let ((lsp-toggle-old (cdar (pm-list-get (list '+lsp-enabled)  'c++-mode old)))
+		  (lsp-toggle-new (cdar (pm-list-get (list '+lsp-enabled) 'c++-mode new)))
+		  (dir (f-dirname stash-file)))
+	  (message "+lsp-toggle-on-pm-locals-change, old: %s, new: %s" lsp-toggle-old lsp-toggle-new)
+	  (pcase (list lsp-toggle-old lsp-toggle-new)
+		(`(nil t) (+lsp-toggle-below dir t))
+		(`(t nil) (+lsp-toggle-below dir nil)))))
+
+  (add-hook #'pm-locals--on-changed-hook #'+lsp-toggle-on-pm-locals-change)
+
   )
 
 (use-package ccls
