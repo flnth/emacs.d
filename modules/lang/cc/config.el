@@ -346,9 +346,15 @@ lines. Aligns elements on the lading comma or semicolon."
   ;; -------------
   (modern-c++-font-lock-mode 1)
   (filladapt-mode 1)
+  (evil-define-key '(normal visual insert) c++-mode-map
+	(kbd "M-.")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
+	(kbd "C-e")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
+	)
+  (global-set-key (kbd "S-<mouse-4>") #'pop-tag-mark)
+  (global-set-key (kbd "S-<mouse-5>") #'whist-go-back)
   )
 
-(add-hook 'c++-mode-hook 'cpp-mode-config)
+(add-hook 'c++-mode-hook 'cpp-mode-config t)
 
 (defun c-mode-config ()
   (spacemacs/toggle-truncate-lines-on)
