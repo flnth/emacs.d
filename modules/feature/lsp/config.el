@@ -208,13 +208,14 @@
   ;; TODO:  extend for non-just-c++-mode things
   (defun +lsp-toggle-below (root onoff)
 	"Turns lsp mode ON or OFF in all open c++-buffers below root."
-	(message "+lsp-toggle-below:  %s %s" root onoff)
+	;; (message "+lsp-toggle-below:  %s %s" root onoff)
 	(dolist (buf (buffer-list)) ; TODO: make macro out of this inside pm library, see pm-locals-update-buffers
 	  (let ((buf-dir (f-slash (f-dirname (or (buffer-file-name buf)
 											 default-directory)))))
 		;; for every cpp-buffer buffer below root
 		(when (and (string-prefix-p root buf-dir)
 				   (eq (buffer-local-value 'major-mode buf) 'c++-mode))
+		  ;; (message "+lsp-toggle-below:  acting on %s" buf)
 		  (with-current-buffer buf
 			(if onoff
 				(progn (lsp) (lsp-mode))
