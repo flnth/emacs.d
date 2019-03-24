@@ -210,10 +210,10 @@ values."
 									  filladapt
 									  magit-todos
 									  zoom
-									  cquery
 									  request-deferred
 									  org-attach-screenshot
 									  helm-projectile
+									  ccls
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -567,14 +567,13 @@ you should place your code here."
 (load "feature/printing/config")
 (load "feature/redmine/config")
 (load "feature/cmake/config")
-(load "feature/lsp/config")
-(load "feature/lsp-cquery/config")
-(load "feature/lsp-supervisor/config")
 (load "feature/plantuml/config")
-(load "feature/pm/config")
- ;; (require 'lsp-mode)
  ;; -- ipc
  ;; (load "ipc/dbus-interface/config")
+  (load "feature/pm/config")
+  ;; (require 'lsp-mode)
+  (load "feature/lsp/config")
+  ;; (load "feature/lsp-supervisor/config")
 
 ;; -- lang
 (load "lang/cc/config")
@@ -610,12 +609,11 @@ you should place your code here."
 ;;
 ;;  ;; -- app
  (load "app/elfeed/config")
-;;
-;;  (message "--------------------------------------------------------------------\n")
-;;
  (spacemacs/toggle-truncate-lines-on)
 ;;
 ) ;; ------------------------------------------------------------------------------
+  (message "... modules loaded.")
+  (message "--------------------------------------------------------------------\n")
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
