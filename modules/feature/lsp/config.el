@@ -1,5 +1,8 @@
 ;; modules/feature/lsp/config.el    -*- lexical-binding: t; -*-
 
+;; NOTE: usage of lsp-mode in pm .dir-locals:
+;;    (c++-mode . ((+lsp-enabled . t)))
+
 (use-package lsp-mode
   :config
 
@@ -238,7 +241,10 @@
 
   (require 'f)
 
-  (setq ccls-executable (concat (f-slash (getenv "STACKROOT")) "/opt/ccls/Release/ccls")
-		ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
-  
+  (if (not (f-exists? (concat (getenv "STACKROOT") "/opt/ccls/Release/ccls")))
+	  (message "lsp,ccls,config.el:   binary not found ---- ")
+
+	  (progn
+		(setq ccls-executable (concat (f-slash (getenv "STACKROOT")) "/opt/ccls/Release/ccls")
+			  ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))))
   )
