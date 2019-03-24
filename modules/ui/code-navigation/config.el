@@ -465,6 +465,7 @@ ycmd--handle-detailed-info-response"
   (interactive)
   (use-package ycmd)
   (use-package company)
+  (use-package company-ycmd)
   (use-package ycmd-eldoc)
   (company-ycmd-setup)
 
@@ -486,5 +487,20 @@ ycmd--handle-detailed-info-response"
   (advice-add #'eldoc-message :after #'update-tty-cursor-on-eldoc-message)
   )
 
-(run-with-idle-timer 2 nil 'fn-load-ycmd)
+;; disable ycmd
+;; (run-with-idle-timer 2 nil 'fn-load-ycmd)
 
+;;;; lsp
+
+(require 'lsp-mode)
+(require 'ccls)
+
+;; handled via dir-local variables
+;; (add-hook 'c++-mode-hook 'lsp)
+
+(defun +lsp-enable (file)
+  "Enables lsp-mode for FILE."
+  (let ((buf (get-buffer (f-filename file))))
+	(when buf
+	  (with-current-buffer buf
+		(lsp)))))
