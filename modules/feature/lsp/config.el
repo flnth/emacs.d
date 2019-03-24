@@ -12,7 +12,7 @@
 		lsp-enable-indentation nil		; ?
 		lsp-enable-on-type-formatting t ; ?
 		lsp-before-save-edits nil
-		lsp-hover-enabled nil			; does nothing?
+		;; lsp-hover-enabled nil			; does nothing?
 		lsp-signature-enabled t			; for eldoc
 		lsp-auto-guess-root t			; auto-guess root
 		;; -32800 default, -32603: internal error, -32002: server not initialized
@@ -169,4 +169,16 @@
       (remove-hook 'lsp-on-hover-hook 'lsp-ui-doc--on-hover t)
       (remove-hook 'delete-frame-functions 'lsp-ui-doc--on-delete t))))
 
+  )
+
+(use-package ccls
+  :ensure t
+  :after lsp-mode
+  :config
+
+  (require 'f)
+
+  (setq ccls-executable (concat (f-slash (getenv "STACKROOT")) "/opt/ccls/Release/ccls")
+		ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  
   )
