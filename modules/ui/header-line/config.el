@@ -21,7 +21,7 @@
   ;; ... stuff in +header-line ...
 
   :config
-  (setq tabbar-default-header-line-format-function #'+header-line-format)
+  ;; (setq tabbar-default-header-line-format-function #'+header-line-format)
   )
 
 
