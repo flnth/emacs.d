@@ -30,7 +30,8 @@
 	(when (+tmuxp)
 	  (+tmux-notify-show-notification tmux-text +tmux-notify-notification-default-time))))
 
-(add-hook 'ercn-notify-hook '+tmux-notify-erc-on-message)
+;; (add-hook 'ercn-notify-hook '+tmux-notify-erc-on-message)
+;; (remove-hook 'ercn-notify-hook '+tmux-notify-erc-on-message)
 
 ;;;; server connection status
 

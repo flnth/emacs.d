@@ -22,7 +22,7 @@
 
 	(setq python-shell-interpreter-args "--simple-prompt"
 		  python-shell-interpreter (pcase loc
-									 ("work" "/home/fthevissen/localstorage/software/Anaconda3/bin/ipython")
+									 ("work" "/home/fthevissen/localstorage/.dotfiles/bin/ipython")
 									 ("home" "/home/fthevissen/software/anaconda/bin/ipython")
 									 (_ (error "Cannot set python-shell-interpreter.")))
 		  )

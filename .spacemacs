@@ -1487,6 +1487,8 @@ h3 { margin-bottom: 0px; }
  '(smooth-scroll/vscroll-step-size 7)
  '(smtpmail-smtp-server "mail.rwth-aachen.de")
  '(smtpmail-smtp-service 587)
+ '(sp-autodelete-closing-pair t)
+ '(sp-autodelete-opening-pair t)
  '(sp-escape-quotes-after-insert nil)
  '(sp-escape-wrapped-region nil)
  '(sp-show-pair-from-inside nil)

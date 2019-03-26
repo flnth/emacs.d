@@ -710,10 +710,12 @@ lines. Aligns elements on the lading comma or semicolon."
   for known ones (i.e. iframework operators etc.)
    pre-creating a constructor, and methods."
   (interactive)
-  (-let* ((yas-snippet-dirs (list (concat dir_emacs "/share/newfile/new")))
+  (-let* ((yas-snippet-dirs (list (concat dir_emacs "share/yasnippets/newfile")))
 		  ((directory classname) (+cc--get-path) )
 		  (header (concat (f-slash directory) classname ".h"))
 		  (source (concat (f-slash directory) classname ".cpp")))
+
+	(message "here! %s" yas-snippet-dirs)
 
 	;; existing files?
 	(when (or (f-exists? header) (f-exists? source))
