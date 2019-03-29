@@ -570,9 +570,9 @@ you should place your code here."
 (load "feature/plantuml/config")
  ;; -- ipc
  ;; (load "ipc/dbus-interface/config")
-  (load "feature/pm/config")
+(load "feature/pm/config")
   ;; (require 'lsp-mode)
-  (load "feature/lsp/config")
+(load "feature/lsp/config")
   ;; (load "feature/lsp-supervisor/config")
 
 ;; -- lang

@@ -4,7 +4,7 @@
 
 (use-package pm
   ;; :load-path (concat (getenv "DIR_SYSTEM") "/emacs/modules/feature/pm/")
-  :load-path (lambda () (concat (getenv "DIR_SYSTEM") "/emacs/modules/feature/pm/"))
+  :load-path (lambda () (concat dir_emacs "/modules/feature/pm/"))
   ;; :after (ivy ido counsel projectile counsel-projectile f magit)
   ;; :demand
   :init
