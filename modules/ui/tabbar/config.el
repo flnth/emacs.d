@@ -96,6 +96,9 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
 		 )
 	(concat display-label)))
 
+;; TODO disabled, performance problems
+(defun tabbar-line-tab (tab) nil)
+
 ;; overwrite formatting of the whole tabbar
 ;; TODO: rewrite this algo, it's crap (!)
 (defun tabbar-line-format (tabset)
@@ -188,6 +191,9 @@ Call `tabbar-tab-label-function' to obtain a label for TAB."
 		  (nreverse elts)
 		  right-header-line
 		  ))))))
+
+;; TODO disabled, performance problems
+(defun tabbar-line-format (tabset) nil )
 
 ;; overwrite overflow check
 (defun tabbar-check-overflow (tabset &optional noscroll left-aligned right-aligned)
