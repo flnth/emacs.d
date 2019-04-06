@@ -611,9 +611,12 @@ you should place your code here."
  (load "app/elfeed/config")
  (spacemacs/toggle-truncate-lines-on)
 ;;
-) ;; ------------------------------------------------------------------------------
-  (message "... modules loaded.")
-  (message "--------------------------------------------------------------------\n")
+ (message "... modules loaded.")
+ (message "--------------------------------------------------------------------\n")
+ ;;
+ (spacemacs/toggle-truncate-lines-on)
+ ;;
+ ) ;; ------------------------------------------------------------------------------
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -1562,7 +1565,6 @@ h3 { margin-bottom: 0px; }
  '(zoom-ignored-buffer-names '("*ielm*"))
  '(zoom-ignored-major-modes '(inferior-emacs-lisp-mode))
  '(zoom-size '(0.618 . 0.618)))
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

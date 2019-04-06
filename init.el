@@ -6,7 +6,7 @@
 
 (setq server-socket-dir "/tmp/emacs1000/")
 
-(setq spacemacsdir (concat (getenv "DIR_EMACSD") "/spacemacs/" ))
+(setq spacemacsdir (concat (getenv "DIR_EMACSD") "spacemacs/" ))
 (message (concat "spacemacsdir: " spacemacsdir))
 (setq default-directory spacemacsdir)
 (setq user-emacs-directory spacemacsdir)
