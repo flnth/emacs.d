@@ -4,7 +4,7 @@
 
 (use-package ui/access/access
   ;; :after (ivy ido counsel projectile counsel-projectile f magit)
-  ;; :demand
+  :demand
   :bind (("M-x" . acc-M-x)
 		 ("M-X" . counsel-M-x)
 		 :map evil-motion-state-map
