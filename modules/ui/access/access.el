@@ -580,8 +580,8 @@ string to replace (default: thing-at-point), and for the string
 									   (file-truename f) f))
 							(projectile-current-project-files)))
 				  (directory-files-recursively default-directory ""))))
-	(when (multifile-initialize-replace old-text new-text files 'default)
-	  (multifile-continue))))
+	(when (fileloop-initialize-replace old-text new-text files 'default)
+	  (fileloop-continue))))
 
 ;; TODO: implement fn-find-project
 ;; (require 'fuzzy-match)
