@@ -12,7 +12,10 @@
 	(setq header-line-format nil)
 	(when (display-graphic-p)
 	  (set-window-fringes nil 1 1))
-	(setq-local mode-line-format nil))
+	(setq-local mode-line-format nil)
+	(when (not treemacs--width-is-locked)
+	  (treemacs-toggle-fixed-width))
+	)
 
   ;; hide root icon
   (plist-put (cdr (get-text-property 0 'display treemacs-icon-root-png)) :scale 0.1)
