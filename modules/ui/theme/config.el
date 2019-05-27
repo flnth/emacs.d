@@ -37,6 +37,12 @@
 ;; -------- mouse
 (set-mouse-color "white")
 
+;; TODO:  doesn't work, make it
+;; (add-hook #'after-make-frame-functions (lambda (frame)
+;; 										 (message "here")
+;; 										 (set-mouse-color "white")
+;; 										 ))
+
 ;; -----------------------------------------------------------------------------
 ;;        treemacs
 ;; -----------------------------------------------------------------------------
