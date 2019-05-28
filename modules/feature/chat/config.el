@@ -185,8 +185,8 @@
 					 (message "   skipping %s ..." chan))))))
 	(message "   ...done!" ))
 
-  (when (string= (getenv "LOC") "work")
-	(run-with-idle-timer +chat-irc--startup-connect-delay nil #'+chat-irc-bitlbee-join-channels) )
+  ;; (when (string= (getenv "LOC") "work")
+  ;; 	(run-with-idle-timer +chat-irc--startup-connect-delay nil #'+chat-irc-bitlbee-join-channels) )
 
 ;;;; bitlbee
   (defun bitlbee-netrc-identify ()
