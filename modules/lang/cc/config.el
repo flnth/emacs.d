@@ -331,6 +331,11 @@ lines. Aligns elements on the lading comma or semicolon."
 (define-key c-mode-map (kbd "C-/") #'+lsp-trigger-ui-doc)
 (define-key c-mode-map (kbd "C-_") #'+lsp-trigger-ui-doc)
 
+(define-key c++-mode-map (kbd "M-=") #'flymake-goto-next-error)
+(define-key c++-mode-map (kbd "M--") #'flymake-goto-prev-error)
+(define-key c-mode-map (kbd "M--") #'flymake-goto-next-error)
+(define-key c-mode-map (kbd "M-=") #'flymake-goto-prev-error)
+
 (defun cpp-mode-config ()
   (spacemacs/toggle-truncate-lines-on)
   (yascroll-bar-mode -1)
