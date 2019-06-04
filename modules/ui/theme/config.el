@@ -35,11 +35,13 @@
 (setf (cdr (assq 'truncation fringe-indicator-alist)) '(nil nil))
 
 ;; -------- mouse
-(set-mouse-color "green")
-
 (defun set-mouse-color_ (new-frame)
-  (set-mouse-color "green"))
-(add-hook #'after-make-frame-functions #'set_mouse_color_)
+  (interactive)
+  (run-with-idle-timer 0.2
+					   nil
+					   (lambda ()
+						 (set-mouse-color "green"))))
+(add-hook #'after-make-frame-functions 'set-mouse-color_)
 
 ;; -----------------------------------------------------------------------------
 ;;        treemacs
