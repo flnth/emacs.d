@@ -75,7 +75,7 @@ a ruler on the line, toggle its length."
 
 
 (add-hook #'prog-mode-hook #'(lambda ()
-							   (spacemacs/set-leader-keys-for-major-mode major-mode "-" #'(lambda () (interactive) (fn-horizontal-rule ?-)))
+							   (spacemacs/set-leader-keys-for-major-mode major-mode "_" #'(lambda () (interactive) (fn-horizontal-rule ?-)))
 							   (spacemacs/set-leader-keys-for-major-mode major-mode "=" #'(lambda () (interactive) (fn-horizontal-rule ?=)))))
 
 
