@@ -356,6 +356,8 @@ lines. Aligns elements on the lading comma or semicolon."
   (evil-define-key '(normal visual insert) c++-mode-map
 	(kbd "M-.")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
 	(kbd "C-e")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
+	(kbd "M->")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-ui-peek-find-definitions) (smart-jump-go) ))
+	(kbd "M-<")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-ui-peek-find-references) (smart-jump-go) ))
 	)
   (global-set-key (kbd "S-<mouse-4>") #'pop-tag-mark)
   (global-set-key (kbd "S-<mouse-5>") #'whist-go-back)
@@ -382,6 +384,14 @@ lines. Aligns elements on the lading comma or semicolon."
   (setq tab-width 8)
   (modern-c++-font-lock-mode 1)
   (filladapt-mode 1)
+  (evil-define-key '(normal visual insert) c-mode-map
+	(kbd "M-.")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
+	(kbd "C-e")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-find-definition) (smart-jump-go) ))
+	(kbd "M->")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-ui-peek-find-definitions) (smart-jump-go) ))
+	(kbd "M-<")    #'(lambda () (interactive) (if lsp-mode (call-interactively #'lsp-ui-peek-find-references) (smart-jump-go) ))
+	)
+  (global-set-key (kbd "S-<mouse-4>") #'pop-tag-mark)
+  (global-set-key (kbd "S-<mouse-5>") #'whist-go-back)
   )
 
 (add-hook 'c-mode-hook   'c-mode-config)

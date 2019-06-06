@@ -76,3 +76,6 @@
 [submodule "packages/whist"]
 	path = packages/whist
 	url = https://github.com/flnth/whist.el
+[submodule "packages/codewars-mode"]
+	path = packages/codewars-mode
+	url = https://github.com/justin-roche/codewars-mode.git
