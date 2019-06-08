@@ -494,4 +494,3 @@ Calls `bench-multi' and `bench-multi-lexical', which see."
 Line is surrounded by STR-BEFORE and STR-AFTER."
   nil)
 
-

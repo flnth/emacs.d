@@ -79,3 +79,6 @@
 [submodule "packages/codewars-mode"]
 	path = packages/codewars-mode
 	url = https://github.com/justin-roche/codewars-mode.git
+[submodule "packages/codewars-puppeteer"]
+	path = packages/codewars-puppeteer
+	url = https://github.com/justin-roche/codewars-puppeteer.git

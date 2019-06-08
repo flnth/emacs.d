@@ -9,21 +9,21 @@
  '(zoom-ignored-buffer-names '("*ielm*"))
  )
 
-(require 'zoom)
+;; (require 'zoom)
 
-(defun +zoom-update ()
-  "Update the window layout in the current frame."
-  (interactive)
-  (let ((zoom-mode nil)
-        (window-configuration-change-hook nil)
-        (window-combination-resize t)
-        (window-resize-pixelwise t))
-    ;; check if the selected window is not ignored
-    (unless (zoom--window-ignored-p)
-      (zoom--resize)
-      (zoom--fix-scroll))))
+;; (defun +zoom-update ()
+;;   "Update the window layout in the current frame."
+;;   (interactive)
+;;   (let ((zoom-mode nil)
+;;         (window-configuration-change-hook nil)
+;;         (window-combination-resize t)
+;;         (window-resize-pixelwise t))
+;;     ;; check if the selected window is not ignored
+;;     (unless (zoom--window-ignored-p)
+;;       (zoom--resize)
+;;       (zoom--fix-scroll))))
 
-(spacemacs/set-leader-keys "ww" #'+zoom-update)
+;; (spacemacs/set-leader-keys "ww" #'+zoom-update)
 
 ;;;; screen -line utilities ()
 ;; ...for navigating from A -> B, and having cursor position on screen the same

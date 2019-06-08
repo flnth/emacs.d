@@ -214,6 +214,8 @@ values."
 									  org-attach-screenshot
 									  helm-projectile
 									  ccls
+									  dap-mode
+									  dizzee
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -303,7 +305,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("CodeNewRoman NF"
-                               :size 15
+                               :size 13
                                :weight light
                                :style Book
                                :slant normal)
@@ -717,6 +719,12 @@ This function is called at the very end of Spacemacs initialization."
  '(counsel-rg-base-command "rg -S --line-number --no-heading --color never %s .")
  '(custom-safe-themes
    '("b9e9ba5aeedcc5ba8be99f1cc9301f6679912910ff92fdf7980929c2fc83ab4d" "84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" "760441ae217f2b41f67b8c205bb0288507b21c0cff7d45d48bd3c26718dd65d7" "a2e7b508533d46b701ad3b055e7c708323fb110b6676a8be458a758dd8f24e27" default))
+ '(dap-gdb-lldb-debug-program
+   '("node" "/home/fthevissen/.vscode/extensions/webfreak.debug-0.23.1/out/src/gdb.js" "-ex 'print hello'"))
+ '(dap-gdb-lldb-path
+   "/home/fthevissen/.vscode/extensions/webfreak.debug-0.23.1/")
+ '(dap-gdb-lldb-path-lldb
+   '("node" "/home/fthevissen/.vscode/extensions/webfreak.debug-0.23.1/out/src/lldb.js"))
  '(delete-selection-mode t)
  '(desktop-save-mode t)
  '(dired-async-mode nil)
@@ -924,7 +932,7 @@ This function is called at the very end of Spacemacs initialization."
 	 ("[ 	]+" space)
 	 ("$" end-of-line)))
  '(form-feed-line-width t)
- '(frame-font-increment 5 t)
+ '(frame-font-increment 5)
  '(fringe-mode '(8 . 10) nil (fringe))
  '(ggtags-enable-navigation-keys nil)
  '(ggtags-mode-sticky nil)
@@ -1034,8 +1042,7 @@ This function is called at the very end of Spacemacs initialization."
 	 ("HACK" . "#d0bf8f")
 	 ("FIXME" . "#cc9393")
 	 ("XXX" . "#cc9393")
-	 ("XXXX" . "#cc9393")
-	 ("???" . "#cc9393")))
+	 ("XXXX" . "#cc9393")))
  '(hlt-use-overlays-flag t)
  '(hs-hide-comments-when-hiding-all nil)
  '(htmlize-output-type 'inline-css)
@@ -1107,7 +1114,7 @@ This function is called at the very end of Spacemacs initialization."
  '(lsp-ui-doc-header t)
  '(lsp-ui-doc-include-signature t)
  '(lsp-ui-doc-max-height 40)
- '(lsp-ui-doc-position 'top)
+ '(lsp-ui-doc-position 'at-point)
  '(lsp-ui-doc-use-childframe t)
  '(lsp-ui-peek-always-show t)
  '(lsp-ui-peek-enable t)
@@ -1289,6 +1296,7 @@ h3 { margin-bottom: 0px; }
  '(org-confirm-babel-evaluate nil)
  '(org-default-priority 52)
  '(org-download-image-dir "./images")
+ '(org-export-with-section-numbers nil)
  '(org-fontify-done-headline t)
  '(org-format-latex-header
    "\\documentclass[leqno]{article}
@@ -1364,7 +1372,7 @@ h3 { margin-bottom: 0px; }
  '(outshine-startup-folded-p nil)
  '(overflow-newline-into-fringe nil)
  '(package-selected-packages
-   '(lsp-clangd cycle-quotes org-attach-screenshot zoom magit-todos emr lsp lsp-python-ms pydoc python-info daemons filladapt python-mode flymake-python-pyflakes flycheck-mypy eglot company-lsp elscreen-separate-buffer-list lsp-ui lsp-mode find-file-in-project mu4e-conversation loccur framesize feebleline minibuffer-line lua-mode ansible-doc ansible auto-dim-other-buffers clojure-mode anki-editor origami vimish-fold evil-fringe-mark calfw-org tabbar-ruler tabbar highlight-defined highlight-function-calls org-super-agenda peep-dired org-fancy-priorities restclient org-caldav ercn remark-mode znc plantuml-mode ag smart-jump paren-face lispyville page-break-lines form-feed treepy morlock shadchen vertigo face-explorer highlight-indent-guides beacon helm-org-rifle indent-tools modern-cpp-font-lock helpful multi-compile dired-ranger ranger company-childframe ivy-posframe posframe nav-flash smooth-scroll python-cell flycheck-haskell dante org-category-capture goto-chg rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby utop tuareg caml ocp-indent merlin ensime sbt-mode scala-mode wgrep smex ivy-hydra counsel-projectile counsel-dash counsel swiper ivy racket-mode faceup toml-mode racer cargo rust-mode fsharp-mode navi-mode outshine spaceline-all-the-icons intero hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode offlineimap ob-sml ledger-mode messages-are-flowing visual-fill-column mu4e-maildirs-extension mu4e-alert ht muse spinner hydra projectile diminish bind-key packed memoize font-lock+ avy powerline highlight iedit smartparens bind-map evil undo-tree helm helm-core f s winum unfill fuzzy sml-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data org-gcal request-deferred deferred calfw google-maps elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed vimrc-mode dactyl-mode spotify ob-ipython company-auctex auctex emms diff-hl mode-icons zoom-window zoom-frm all-the-icons spaceline smart-mode-line-powerline-theme smart-mode-line sr-speedbar ecb flycheck-tip flycheck-pos-tip traad stickyfunc-enhance srefactor flycheck rtags company-irony irony cmake-ide levenshtein helm-cscope xcscope csv-mode dash async ox-gfm org-projectile org-present org-pomodoro org-download toc-org orgit org org-plus-contrib org-bullets rainbow-mode vdiff highlight-quoted evil-text-object-python Theme1_-theme yascroll evil-textobj-column names simpleclip nlinum-relative nlinum zeal-at-point yapfify yaml-mode xterm-color web-beautify sql-indent smeargle shell-pop realgud test-simple loc-changes load-relative rainbow-identifiers pyvenv pytest pyenv-mode py-isort pip-requirements pdf-tools tablist alert log4e gntp mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jabber fsm hy-mode htmlize helm-pydoc helm-gitignore helm-dash helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fasd evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ein websocket disaster cython-mode company-tern dash-functional tern company-statistics company-quickhelp pos-tip company-emacs-eclim eclim company-c-headers company-anaconda company color-identifiers-mode coffee-mode cmake-mode clang-format auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete zonokai-theme zenburn-theme zen-and-art-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacemacs-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme quelpa purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox organic-green-theme open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gandalf-theme flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav dumb-jump dracula-theme django-theme define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line))
+   '(dizzee imenus dap-mode lsp-clangd cycle-quotes org-attach-screenshot zoom magit-todos emr lsp lsp-python-ms pydoc python-info daemons filladapt python-mode flymake-python-pyflakes flycheck-mypy eglot company-lsp elscreen-separate-buffer-list lsp-ui lsp-mode find-file-in-project mu4e-conversation loccur framesize feebleline minibuffer-line lua-mode ansible-doc ansible auto-dim-other-buffers clojure-mode anki-editor origami vimish-fold evil-fringe-mark calfw-org tabbar-ruler tabbar highlight-defined highlight-function-calls org-super-agenda peep-dired org-fancy-priorities restclient org-caldav ercn remark-mode znc plantuml-mode ag smart-jump paren-face lispyville page-break-lines form-feed treepy morlock shadchen vertigo face-explorer highlight-indent-guides beacon helm-org-rifle indent-tools modern-cpp-font-lock helpful multi-compile dired-ranger ranger company-childframe ivy-posframe posframe nav-flash smooth-scroll python-cell flycheck-haskell dante org-category-capture goto-chg rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby utop tuareg caml ocp-indent merlin ensime sbt-mode scala-mode wgrep smex ivy-hydra counsel-projectile counsel-dash counsel swiper ivy racket-mode faceup toml-mode racer cargo rust-mode fsharp-mode navi-mode outshine spaceline-all-the-icons intero hlint-refactor hindent helm-hoogle haskell-snippets company-ghci company-ghc ghc haskell-mode company-cabal cmm-mode offlineimap ob-sml ledger-mode messages-are-flowing visual-fill-column mu4e-maildirs-extension mu4e-alert ht muse spinner hydra projectile diminish bind-key packed memoize font-lock+ avy powerline highlight iedit smartparens bind-map evil undo-tree helm helm-core f s winum unfill fuzzy sml-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data org-gcal request-deferred deferred calfw google-maps elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed vimrc-mode dactyl-mode spotify ob-ipython company-auctex auctex emms diff-hl mode-icons zoom-window zoom-frm all-the-icons spaceline smart-mode-line-powerline-theme smart-mode-line sr-speedbar ecb flycheck-tip flycheck-pos-tip traad stickyfunc-enhance srefactor flycheck rtags company-irony irony cmake-ide levenshtein helm-cscope xcscope csv-mode dash async ox-gfm org-projectile org-present org-pomodoro org-download toc-org orgit org org-plus-contrib org-bullets rainbow-mode vdiff highlight-quoted evil-text-object-python Theme1_-theme yascroll evil-textobj-column names simpleclip nlinum-relative nlinum zeal-at-point yapfify yaml-mode xterm-color web-beautify sql-indent smeargle shell-pop realgud test-simple loc-changes load-relative rainbow-identifiers pyvenv pytest pyenv-mode py-isort pip-requirements pdf-tools tablist alert log4e gntp mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jabber fsm hy-mode htmlize helm-pydoc helm-gitignore helm-dash helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fasd evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help ein websocket disaster cython-mode company-tern dash-functional tern company-statistics company-quickhelp pos-tip company-emacs-eclim eclim company-c-headers company-anaconda company color-identifiers-mode coffee-mode cmake-mode clang-format auto-yasnippet yasnippet anaconda-mode pythonic ac-ispell auto-complete zonokai-theme zenburn-theme zen-and-art-theme ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacemacs-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme restart-emacs request rainbow-delimiters railscasts-theme quelpa purple-haze-theme professional-theme popwin planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode pcre2el pastels-on-dark-theme paradox organic-green-theme open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme neotree naquadah-theme mustang-theme move-text monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme macrostep lush-theme lorem-ipsum linum-relative link-hint light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt heroku-theme hemisu-theme help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gandalf-theme flx-ido flatui-theme flatland-theme firebelly-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu espresso-theme elisp-slime-nav dumb-jump dracula-theme django-theme define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clean-aindent-mode cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ace-jump-helm-line))
  '(paradox-github-token t)
  '(paren-face-modes
    '(lisp-mode emacs-lisp-mode lisp-interaction-mode ielm-mode scheme-mode inferior-scheme-mode clojure-mode cider-repl-mode nrepl-mode arc-mode inferior-arc-mode c++-mode))
@@ -1651,6 +1659,7 @@ h3 { margin-bottom: 0px; }
  '(ediff-odd-diff-C ((t (:background "grey7"))))
  '(ein:cell-input-area ((t (:background "gray14"))))
  '(ein:cell-input-prompt ((t (:inherit header-line :overline t :underline t))))
+ '(eldoc-highlight-function-argument ((t (:foreground "lawn green"))))
  '(elfeed-search-date-face ((t (:foreground "#337ebe"))))
  '(elfeed-search-feed-face ((t (:foreground "#98bd5e"))))
  '(elfeed-search-filter-face ((t (:inherit mode-line-buffer-id :inverse-video t))))
@@ -1803,6 +1812,7 @@ h3 { margin-bottom: 0px; }
  '(lsp-face-highlight-read ((t (:background "black"))))
  '(lsp-ui-doc-background ((t (:background "grey15"))))
  '(lsp-ui-doc-header ((t (:background "#454dd0" :foreground "#ffffff"))))
+ '(lsp-ui-peek-list ((t (:background "#181818"))))
  '(lsp-ui-peek-peek ((t (:background "#212121" :foreground "white"))))
  '(lsp-ui-sideline-current-symbol ((t (:foreground "IndianRed3" :box (:line-width -1 :color "white") :weight normal :height 0.9))))
  '(lsp-ui-sideline-global ((t (:background "#262626"))))
