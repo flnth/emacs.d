@@ -217,14 +217,3 @@ has."
 	(switch-to-buffer buf t t)
 	(goto-char (point-max))
 	nil))
-
-
-;; (defun +org-anki-insert ()
-;;   (interactive)
-
-;;   ;; prompt for name
-;;   ;; use name for inserting a heading thus named in level 2
-;;   ;; Insert level 3 headings FRONT and BACK, one empty line apart each
-;;   ;; use name and current level 4 heading below FRONT to insert heading level 3 "L1 - L2"
-
-;;   )

@@ -361,9 +361,6 @@ lines. Aligns elements on the lading comma or semicolon."
 	)
   (global-set-key (kbd "S-<mouse-4>") #'pop-tag-mark)
   (global-set-key (kbd "S-<mouse-5>") #'whist-go-back)
-  (global-set-key (kbd "<drag-mouse-9>") #'pop-tag-mark)
-  (global-set-key (kbd "<mouse-8>") #'whist-go-back)
-  (global-set-key (kbd "<drag-mouse-8>") #'whist-go-back)
   )
 
 (add-hook 'c++-mode-hook 'cpp-mode-config t)
@@ -395,9 +392,6 @@ lines. Aligns elements on the lading comma or semicolon."
 	)
   (global-set-key (kbd "S-<mouse-4>") #'pop-tag-mark)
   (global-set-key (kbd "S-<mouse-5>") #'whist-go-back)
-  (global-set-key (kbd "<drag-mouse-9>") #'pop-tag-mark)
-  (global-set-key (kbd "<mouse-8>") #'whist-go-back)
-  (global-set-key (kbd "<drag-mouse-8>") #'whist-go-back)
   )
 
 (add-hook 'c-mode-hook   'c-mode-config)
@@ -669,10 +663,11 @@ lines. Aligns elements on the lading comma or semicolon."
   "Calls +cc-comment-region for a C-style multiline comment when
   PREFIX provided, otherwise the default evilnc-comment-operator."
   (interactive "p")
-  (message "here?")
-  (if arg (+cc-comment-region) (evilnc-comment-operator (region-beginning) (region-end))))
+  (if (eq arg 4) (+cc-comment-region)
+	(evilnc-comment-operator (region-beginning) (region-end))))
 
-(define-key evil-normal-state-map "gc" '+cc-visual-gc-handler)
+(evil-define-key '(normal visual) c++-mode-map "gc" '+cc-visual-gc-handler)
+(evil-define-key '(normal visual) c-mode-map "gc" '+cc-visual-gc-handler)
 
 (defun +cc-M-ret-handler ()
   "Perform DWIM action at point."
@@ -839,75 +834,7 @@ lines. Aligns elements on the lading comma or semicolon."
 		  (when cmakelists-dir
 			(find-file (concat (f-slash cmakelists-dir) "CMakeLists.txt" ) )))))))
 
-(defun +cc--create-makefile-buffer (sourcefile)
-  "Creates a makefile buffer with sourcefile as its sole SRC."
-  (let ((buf (get-buffer-create (concat "Makefile_" (s-left 5 (uuidgen-1)))))
-		(content
-		 "
-SRCS = _SOURCEFILE_
-
-OBJS = $(SRCS:.c=.o)
-CFLAGS = -pthread
-
-.PHONY: all
-all: out
-
-%.o : %.c
-	$(CC) -c $< $(CFLAGS) -o $@
-
-out: $(OBJS)
-	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $@
-
-.PHONY: clean
-clean:
-	rm -f $(OBJS) out"))
-	(with-current-buffer buf
-	  (insert (s-replace "_SOURCEFILE_" sourcefile content)))
-	buf))
-
-(defvar +cc-bear-command "bear -l /usr/lib/x86_64-linux-gnu/bear/libear.so")
-
-(defun +cc--create-compile-commands-current-dir ()
-  "Creates compile_commands.json in the current directory using
-  bear."
-  (shell-command (concat +cc-bear-command " make")))
-
-(defun +cc--touch-ccls ()
-  (when (not (f-exists? ".ccls")) (shell-command "touch .ccls")))
-
-(defun +cc-setup-lsp-single-file (prefix-argument)
-  "Command intended to be used for single-file C or C++
-  programs. Creates a makefile "
-  (interactive "p")
-  (let ((ask-questions (eq prefix-argument 0))
-		(makefile-exists (f-exists? "Makefile"))
-		(sourcefile (f-filename (buffer-file-name)))
-		(do-enable-lsp nil))
-
-	(with-current-buffer (+cc--create-makefile-buffer sourcefile)
-	  (write-file "Makefile" ask-questions)
-	  (if (eq 0 (+cc--create-compile-commands-current-dir))
-		  (setf do-enable-lsp t)
-		(when (y-or-n-p "Compilation of compile-commands failed. Open makefile?")
-		  (find-file "./Makefile"))))
-	(when do-enable-lsp
-	  (+cc--touch-ccls)
-	  (lsp))))
-
-;; ---------------------------------------------------------
-
-(defun +cc-imenu-glibc ()
-  "Search through declarations in a set of standard
-  headers (glibc, pthreads, etc.), and open a company selection
-  showing symbol details (class/function), and the header in
-  which they're defined relative to some 'well-known' include
-  directory."
 
 
 
-  )
 
-(defun +cc-man-page-at-point ()
-  "Opens the man page of the thing at point."
-  (interactive)
-  (man (symbol-name (symbol-at-point))))
